@@ -1,6 +1,14 @@
 import { useState } from 'react'
 
-const SECCIONES = [
+// ============================================================================
+// CONSTANTES
+// ============================================================================
+
+const URL_CRM = 'https://www.pulsocrm.com.mx'
+const URL_WHATSAPP = 'https://wa.me/523341624372'
+const EMAIL_SOPORTE = 'asistencia@pulsocrm.com.mx'
+
+const SECCIONES_NAV = [
   { id: 'primeros-pasos', label: 'Primeros pasos' },
   { id: 'contpaqi',       label: 'CONTPAQi' },
   { id: 'cotizaciones',   label: 'Cotizaciones' },
@@ -8,47 +16,50 @@ const SECCIONES = [
   { id: 'movil',          label: 'Móvil' },
 ]
 
-const URL_CRM = 'https://www.pulsocrm.com.mx'
+// ============================================================================
+// APP
+// ============================================================================
 
 export default function App() {
   return (
-    <div className="text-slate-800">
-      <Header />
-      <Hero />
-      <PrimerosPasos />
-      <Contpaqi />
-      <Cotizaciones />
-      <Pipeline />
-      <Movil />
+    <>
+      <Navbar />
+      <main className="guia-wrap">
+        <Hero />
+        <PrimerosPasos />
+        <Contpaqi />
+        <Cotizaciones />
+        <Pipeline />
+        <Movil />
+      </main>
       <Footer />
-    </div>
+    </>
   )
 }
 
 // ============================================================================
-// HEADER
+// NAVBAR (sticky)
 // ============================================================================
 
-function Header() {
+function Navbar() {
   const [abierto, setAbierto] = useState(false)
-
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        <a href="#top" className="flex items-center gap-2.5">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+      <div className="max-w-[1100px] mx-auto px-5 h-16 flex items-center justify-between gap-4">
+        <a href="#top" className="flex items-center gap-2.5 flex-shrink-0">
           <Logo />
           <div className="leading-tight">
-            <div className="font-bold text-slate-900">PULSO</div>
-            <div className="text-[11px] text-slate-500">Centro de Ayuda</div>
+            <div className="font-bold text-slate-900 text-[15px]">PULSO</div>
+            <div className="text-[11px] text-slate-500">Guía de ayuda</div>
           </div>
         </a>
 
         <nav className="hidden md:flex items-center gap-1">
-          {SECCIONES.map((s) => (
+          {SECCIONES_NAV.map((s) => (
             <a
               key={s.id}
               href={`#${s.id}`}
-              className="px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-700 transition"
+              className="px-3 py-2 text-sm font-medium text-slate-600 hover:text-[#0052CC] transition"
             >
               {s.label}
             </a>
@@ -57,7 +68,7 @@ function Header() {
 
         <a
           href={URL_CRM}
-          className="hidden sm:inline-flex px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white rounded-lg text-sm font-semibold transition shadow-sm"
+          className="hidden sm:inline-flex px-4 py-2 bg-[#0052CC] hover:bg-[#003d99] text-white rounded-lg text-sm font-semibold transition flex-shrink-0"
         >
           Ir al CRM →
         </a>
@@ -76,7 +87,7 @@ function Header() {
       {abierto && (
         <div className="md:hidden border-t border-slate-200 bg-white">
           <nav className="px-4 py-3 flex flex-col gap-1">
-            {SECCIONES.map((s) => (
+            {SECCIONES_NAV.map((s) => (
               <a
                 key={s.id}
                 href={`#${s.id}`}
@@ -88,7 +99,7 @@ function Header() {
             ))}
             <a
               href={URL_CRM}
-              className="mt-2 px-3 py-2.5 text-center bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-sm font-semibold rounded-lg"
+              className="mt-2 px-3 py-2.5 text-center bg-[#0052CC] text-white text-sm font-semibold rounded-lg"
             >
               Ir al CRM →
             </a>
@@ -101,7 +112,7 @@ function Header() {
 
 function Logo() {
   return (
-    <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center shadow-sm flex-shrink-0">
+    <div className="w-9 h-9 bg-[#0052CC] rounded-lg flex items-center justify-center flex-shrink-0">
       <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h4l3-9 4 18 3-9h4" />
       </svg>
@@ -115,206 +126,90 @@ function Logo() {
 
 function Hero() {
   return (
-    <section
-      id="top"
-      className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden text-white"
-      style={{ background: 'linear-gradient(135deg,#1e3a8a 0%,#3730a3 50%,#581c87 100%)' }}
-    >
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute top-10 right-10 w-72 h-72 bg-white rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-indigo-300 rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight leading-tight">
-          Guía completa de PULSO CRM
-        </h1>
-        <p className="mt-5 text-lg text-blue-100 max-w-2xl mx-auto">
-          Aprende a sacarle el máximo provecho a tu CRM. Diseñado para equipos
-          comerciales en México.
-        </p>
-
-        <div className="mt-10 max-w-xl mx-auto">
-          <div className="relative">
-            <svg
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
-              fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input
-              type="search"
-              placeholder="Buscar en la documentación… (próximamente)"
-              disabled
-              className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-white/95 text-slate-900 placeholder:text-slate-400 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300/40 disabled:cursor-not-allowed"
-            />
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-wrap justify-center gap-2 text-xs">
-          {SECCIONES.map((s) => (
-            <a
-              key={s.id}
-              href={`#${s.id}`}
-              className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-blue-50 font-medium transition"
-            >
-              {s.label}
-            </a>
-          ))}
-        </div>
+    <section id="top" className="guia-hero">
+      <h1>Guía completa de PULSO CRM</h1>
+      <p>
+        Aprende a sacarle el máximo provecho a tu CRM. Diseñado para equipos
+        comerciales en México.
+      </p>
+      <div className="guia-nav">
+        {SECCIONES_NAV.map((s) => (
+          <a key={s.id} href={`#${s.id}`}>{s.label}</a>
+        ))}
       </div>
     </section>
   )
 }
 
 // ============================================================================
-// LAYOUT HELPERS
+// COMPONENTES REUTILIZABLES
 // ============================================================================
 
-function Seccion({ id, eyebrow, titulo, intro, children }) {
+function Seccion({ id, numero, titulo, intro, children }) {
   return (
-    <section id={id} className="py-16 md:py-24">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12">
-          <div className="text-xs font-bold uppercase tracking-widest text-blue-600">
-            {eyebrow}
-          </div>
-          <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            {titulo}
-          </h2>
-          {intro && (
-            <p className="mt-3 text-slate-600 max-w-3xl">{intro}</p>
-          )}
-        </div>
-        <div className="space-y-12">{children}</div>
+    <section id={id} className="seccion">
+      <div className="seccion-header">
+        <div className="seccion-num">{numero}</div>
+        <h2>{titulo}</h2>
       </div>
+      {intro && <p className="seccion-intro">{intro}</p>}
+      {children}
     </section>
-  )
-}
-
-function Paso({ numero, titulo, children, imagenes = [] }) {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-      <div className="lg:col-span-5">
-        <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-sm font-bold flex-shrink-0 shadow-sm">
-            {numero}
-          </div>
-          <div className="min-w-0">
-            <h3 className="text-lg font-semibold text-slate-900">{titulo}</h3>
-            <p className="mt-2 text-sm text-slate-600 leading-relaxed">{children}</p>
-          </div>
-        </div>
-      </div>
-      <div className="lg:col-span-7">
-        {/* Apilamos imágenes verticalmente cuando hay varias para que cada
-            captura mantenga su tamaño legible (la grid horizontal achicaba
-            los screenshots desktop al meterlos en 2 columnas). */}
-        <div className="space-y-4">
-          {imagenes.map((img) => (
-            <Placeholder key={img.src} src={img.src} alt={img.alt} />
-          ))}
-        </div>
-      </div>
-    </div>
   )
 }
 
 /**
- * Renderiza imágenes de la guía con la variante correcta:
- *
- *   desktop  → screenshot en marco "navegador": w-full, sombra, borde,
- *              rounded-xl. Aspect-video con object-contain para no
- *              cropear el screenshot real (max-h 600px).
- *   mobile   → marco tipo teléfono: max-w-[300px] mx-auto, sombra
- *              dramática, esquinas muy redondeadas. Aspect 9:19.5.
- *   tesla    → ultra-wide: aspect 21/9 con max-h-[500px], object-cover.
- *
- * La variante se detecta por nombre de archivo (img-m*, img-tesla) pero
- * puede forzarse con la prop `variant`.
- *
- * El "placeholder" gris (nombre del archivo + alt) vive DEBAJO del <img>
- * y solo se ve cuando el <img> falla y se auto-oculta vía onError. El
- * tamaño del contenedor es el mismo cargue o no la imagen → cero
- * salto de layout cuando finalmente subes los PNGs reales.
+ * Una imagen renderizada según su variante:
+ *   img-tesla.png  → clase .img-tesla (object-contain, max-h 400)
+ *   img-m*.png     → wrap centrado con marco de teléfono (180px)
+ *   resto          → desktop normal (width:100%, height:auto)
  */
-function detectarVariante(src) {
-  if (!src) return 'desktop'
-  if (src.includes('tesla')) return 'tesla'
-  if (/\/img-m\d/i.test(src)) return 'mobile'
-  return 'desktop'
-}
+function ImagenPaso({ src, alt }) {
+  const props = {
+    src,
+    alt,
+    loading: 'lazy',
+    onError: (e) => { e.currentTarget.style.display = 'none' },
+  }
 
-function Placeholder({ src, alt, variant }) {
-  const v = variant || detectarVariante(src)
-
-  if (v === 'mobile') {
+  if (src.includes('tesla')) {
+    return <img {...props} className="img-tesla" />
+  }
+  if (/\/img-m\d/i.test(src)) {
     return (
-      <div className="mx-auto w-full max-w-[260px] sm:max-w-[300px]">
-        <div className="relative aspect-[9/19.5] rounded-[2.25rem] border-[7px] border-slate-900 bg-slate-100 overflow-hidden shadow-2xl">
-          <img
-            src={src}
-            alt={alt}
-            loading="lazy"
-            onError={(e) => { e.currentTarget.style.display = 'none' }}
-            className="absolute inset-0 w-full h-full object-cover object-top"
-          />
-          <FallbackImg src={src} alt={alt} pequeno />
-        </div>
+      <div className="img-movil-wrap">
+        <img {...props} className="img-movil" />
       </div>
     )
   }
-
-  if (v === 'tesla') {
-    return (
-      <div className="relative w-full rounded-xl border border-slate-200 bg-slate-900 overflow-hidden shadow-lg">
-        <div className="relative aspect-[21/9] max-h-[500px]">
-          <img
-            src={src}
-            alt={alt}
-            loading="lazy"
-            onError={(e) => { e.currentTarget.style.display = 'none' }}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <FallbackImg src={src} alt={alt} icono="🚗" oscuro />
-        </div>
-      </div>
-    )
-  }
-
-  // desktop screenshot
-  return (
-    <div className="relative w-full rounded-xl border border-slate-200 bg-slate-100 overflow-hidden shadow-xl">
-      <div className="relative aspect-video max-h-[600px]">
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          onError={(e) => { e.currentTarget.style.display = 'none' }}
-          className="absolute inset-0 w-full h-full object-contain"
-        />
-        <FallbackImg src={src} alt={alt} />
-      </div>
-    </div>
-  )
+  // Desktop: NO usar className adicional — el CSS .paso-img img maneja el estilo
+  return <img {...props} />
 }
 
-function FallbackImg({ src, alt, icono, pequeno = false, oscuro = false }) {
-  const colorTxt = oscuro ? 'text-slate-500' : 'text-slate-400'
+/**
+ * Un paso de la guía. `numero` es 1-based; los pares (2, 4, 6...) llevan la
+ * clase .par que invierte el orden (imagen izq, texto der).
+ */
+function Paso({ numero, titulo, imagenes = [], tip, children }) {
+  const par = numero % 2 === 0
   return (
-    <div className={`absolute inset-0 flex flex-col items-center justify-center text-xs p-4 text-center pointer-events-none ${colorTxt}`}>
-      {icono ? (
-        <span className={pequeno ? 'text-3xl mb-1' : 'text-5xl mb-2'}>{icono}</span>
-      ) : (
-        <svg
-          className={pequeno ? 'w-6 h-6 mb-1.5' : 'w-8 h-8 mb-2'}
-          fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      )}
-      <div className="font-mono opacity-70 break-all max-w-full">{src ? src.replace('/img/', '') : ''}</div>
-      {alt && <div className="mt-1 italic max-w-full">{alt}</div>}
+    <div className={par ? 'paso par' : 'paso'}>
+      <div className="paso-texto">
+        <span className="paso-num">Paso {numero}</span>
+        <h3>{titulo}</h3>
+        {/* children puede ser texto, jsx, o un array de <p>'s */}
+        <div>{children}</div>
+        {tip && (
+          <div className="tip-box">
+            <p>{tip}</p>
+          </div>
+        )}
+      </div>
+      <div className="paso-img">
+        {imagenes.map((img) => (
+          <ImagenPaso key={img.src} src={img.src} alt={img.alt} />
+        ))}
+      </div>
     </div>
   )
 }
@@ -327,72 +222,78 @@ function PrimerosPasos() {
   return (
     <Seccion
       id="primeros-pasos"
-      eyebrow="Sección 1"
-      titulo="Primeros pasos en PULSO CRM"
+      numero={1}
+      titulo="Primeros pasos"
       intro="Lo esencial para arrancar: ingresar, navegar el CRM y registrar tu primera empresa."
     >
       <Paso
-        numero="1"
+        numero={1}
         titulo="Ingresa a PULSO CRM"
-        imagenes={[
-          { src: '/img/img-01-login.png',       alt: 'Login en desktop' },
-          { src: '/img/img-02-login-movil.png', alt: 'Login en móvil' },
-        ]}
+        imagenes={[{ src: '/img/img-01-login.png', alt: 'Login en desktop' }]}
       >
-        Abre tu navegador y visita <strong>www.pulsocrm.com.mx</strong>. Ingresa
-        tu correo y contraseña. Si es tu primera vez, usa las credenciales que
-        recibiste por email.
+        <p>
+          Abre tu navegador y visita <strong>www.pulsocrm.com.mx</strong>.
+          Ingresa tu correo y contraseña. Si es tu primera vez, usa las
+          credenciales que recibiste por email.
+        </p>
       </Paso>
 
       <Paso
-        numero="2"
+        numero={2}
         titulo="Tu Dashboard"
         imagenes={[{ src: '/img/img-08-dashboard.png', alt: 'Dashboard con datos' }]}
       >
-        Al iniciar sesión verás tu resumen comercial: empresas activas,
-        contactos, oportunidades abiertas e ingresos del mes. Todo actualizado
-        en tiempo real.
+        <p>
+          Al iniciar sesión verás tu resumen comercial: empresas activas,
+          contactos, oportunidades abiertas e ingresos del mes. Todo
+          actualizado en tiempo real.
+        </p>
       </Paso>
 
       <Paso
-        numero="3"
+        numero={3}
         titulo="Navega por los módulos"
-        imagenes={[
-          { src: '/img/img-06-sidebar.png',       alt: 'Sidebar completo' },
-          { src: '/img/img-m3-sidebar-movil.png', alt: 'Sidebar móvil' },
-        ]}
+        imagenes={[{ src: '/img/img-06-sidebar.png', alt: 'Sidebar completo' }]}
       >
-        El menú lateral tiene acceso a todos los módulos. En móvil, toca el
-        ícono <span className="font-mono">≡</span> para abrir el menú.
+        <p>
+          El menú lateral tiene acceso a todos los módulos. En móvil, toca el
+          ícono <span className="font-mono">≡</span> para abrir el menú.
+        </p>
       </Paso>
 
       <Paso
-        numero="4"
+        numero={4}
         titulo="Agrega tu primera empresa"
         imagenes={[{ src: '/img/img-04-form-empresa.png', alt: 'Formulario nueva empresa' }]}
+        tip="Si tienes CONTPAQi conectado, tus clientes se sincronizan automáticamente — no hace falta capturarlos a mano."
       >
-        Ve a <strong>Empresas → Nueva empresa</strong>. Llena los datos
-        comerciales y fiscales. <em>Tip:</em> Si tienes CONTPAQi conectado, tus
-        clientes se sincronizan automáticamente.
+        <p>
+          Ve a <strong>Empresas → Nueva empresa</strong>. Llena los datos
+          comerciales y fiscales.
+        </p>
       </Paso>
 
       <Paso
-        numero="5"
+        numero={5}
         titulo="Ficha completa del cliente"
         imagenes={[{ src: '/img/img-05-ficha-empresa.png', alt: 'Ficha empresa con 4 tabs' }]}
       >
-        Cada empresa tiene su ficha 360° con información general, contactos
-        vinculados, oportunidades activas y el historial de actividades.
+        <p>
+          Cada empresa tiene su ficha 360° con información general, contactos
+          vinculados, oportunidades activas y el historial de actividades.
+        </p>
       </Paso>
 
       <Paso
-        numero="6"
+        numero={6}
         titulo="Configura tu empresa"
         imagenes={[{ src: '/img/img-01b-configuracion.png', alt: 'Configuración Mi empresa' }]}
       >
-        En <strong>Configuración</strong> puedes subir tu logo, definir colores
-        de marca y configurar datos fiscales que aparecerán en tus
-        cotizaciones.
+        <p>
+          En <strong>Configuración</strong> puedes subir tu logo, definir
+          colores de marca y configurar datos fiscales que aparecerán en tus
+          cotizaciones.
+        </p>
       </Paso>
     </Seccion>
   )
@@ -406,149 +307,143 @@ function Contpaqi() {
   return (
     <Seccion
       id="contpaqi"
-      eyebrow="Sección 2"
+      numero={2}
       titulo="Conectar CONTPAQi"
-      intro="La integración estrella de PULSO. Conectarla elimina la doble captura para siempre."
+      intro="PULSO es el único CRM mexicano con integración nativa a CONTPAQi Comercial Pro. Conectarlo sincroniza automáticamente clientes, productos, precios, condiciones de pago y vendedores — sin re-captura manual."
     >
-      <div className="rounded-xl border border-blue-200 bg-blue-50/60 p-5 sm:p-6">
-        <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <p className="text-sm text-blue-900 leading-relaxed">
-            PULSO es el único CRM mexicano con integración nativa a{' '}
-            <strong>CONTPAQi Comercial Pro</strong>. Conectarlo sincroniza
-            automáticamente: clientes, productos, precios, condiciones de pago
-            y vendedores — sin re-captura manual.
-          </p>
-        </div>
-      </div>
-
       <Paso
-        numero="1"
+        numero={1}
         titulo="Genera tu token de conexión"
-        imagenes={[
-          { src: '/img/img-07-tab-contpaqi.png',       alt: 'Tab Conexión CONTPAQi' },
-          { src: '/img/img-08b-token-generado.png',    alt: 'Token generado' },
-          { src: '/img/img-09-token-activo.png',       alt: 'Token activo en lista' },
-        ]}
+        imagenes={[{ src: '/img/img-07-tab-contpaqi.png', alt: 'Tab Conexión CONTPAQi' }]}
+        tip="IMPORTANTE: copia el token inmediatamente — por seguridad, no podrás verlo de nuevo."
       >
-        Ve a <strong>Configuración → Conexión CONTPAQi → Generar token</strong>.
-        Dale un nombre descriptivo (ej: "Servidor Principal").
-        <span className="block mt-2 text-red-700 font-semibold">
-          IMPORTANTE: copia el token inmediatamente, no podrás verlo de nuevo.
-        </span>
+        <p>
+          Ve a <strong>Configuración → Conexión CONTPAQi → Generar token</strong>.
+          Dale un nombre descriptivo (ej: "Servidor Principal").
+        </p>
       </Paso>
 
       <Paso
-        numero="2"
+        numero={2}
         titulo="Instala el PULSO Bridge"
         imagenes={[{ src: '/img/img-09b-config-json.png', alt: 'config.json en Notepad' }]}
       >
-        Descarga el instalador <strong>PULSO Bridge</strong> en el servidor
-        donde corre CONTPAQi. Ejecuta <span className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded">instalar_bridge.bat</span> como
-        Administrador. El instalador configura todo automáticamente.
+        <p>
+          Descarga el instalador <strong>PULSO Bridge</strong> en el servidor
+          donde corre CONTPAQi. Ejecuta{' '}
+          <span className="font-mono text-xs bg-slate-200 px-1.5 py-0.5 rounded">instalar_bridge.bat</span>{' '}
+          como Administrador. El instalador configura todo automáticamente.
+        </p>
       </Paso>
 
       <Paso
-        numero="3"
+        numero={3}
         titulo="Verificar la sincronización"
         imagenes={[{ src: '/img/img-10-bridge-log.png', alt: 'Log Bridge ciclo finalizado' }]}
       >
-        El Bridge sincroniza automáticamente cada <strong>15 minutos</strong>.
-        Puedes verificar que funciona correctamente revisando el log.
+        <p>
+          El Bridge sincroniza automáticamente cada <strong>15 minutos</strong>.
+          Puedes verificar que funciona correctamente revisando el log.
+        </p>
       </Paso>
 
       <Paso
-        numero="4"
+        numero={4}
         titulo="Revisa tus catálogos sincronizados"
-        imagenes={[
-          { src: '/img/img-19-catalogo-cond-pago.png', alt: 'Catálogo Condiciones de pago' },
-          { src: '/img/img-22-catalogo-impuestos.png', alt: 'Catálogo Impuestos' },
-        ]}
+        imagenes={[{ src: '/img/img-19-catalogo-cond-pago.png', alt: 'Catálogo Condiciones de pago' }]}
       >
-        En <strong>Catálogo</strong> verás todos los datos que llegaron de
-        CONTPAQi: productos, condiciones de pago, monedas, impuestos y
-        vendedores.
+        <p>
+          En <strong>Catálogo</strong> verás todos los datos que llegaron de
+          CONTPAQi: productos, condiciones de pago, monedas, impuestos y
+          vendedores.
+        </p>
       </Paso>
     </Seccion>
   )
 }
 
 // ============================================================================
-// SECCIÓN 3: COTIZACIONES Y PORTAL
+// SECCIÓN 3: COTIZACIONES
 // ============================================================================
 
 function Cotizaciones() {
   return (
     <Seccion
       id="cotizaciones"
-      eyebrow="Sección 3"
+      numero={3}
       titulo="Cotizaciones y Portal del Cliente"
-      intro="Cotizar, enviar al cliente y cerrar — todo en un solo flujo, con pedido CONTPAQi automático."
+      intro="Cotizar, enviar al cliente y cerrar — todo en un solo flujo, con pedido CONTPAQi automático al aceptar."
     >
       <Paso
-        numero="1"
+        numero={1}
         titulo="Lista de cotizaciones"
         imagenes={[{ src: '/img/img-11-lista-cotizaciones.png', alt: 'Lista cotizaciones' }]}
       >
-        En <strong>Cotizaciones</strong> verás todas tus propuestas organizadas
-        por estado: Borrador, Enviada, Vista, Aceptada, Rechazada. Puedes
-        filtrar y ordenar por cualquier columna.
+        <p>
+          En <strong>Cotizaciones</strong> verás todas tus propuestas
+          organizadas por estado: Borrador, Enviada, Vista, Aceptada,
+          Rechazada. Puedes filtrar y ordenar por cualquier columna.
+        </p>
       </Paso>
 
       <Paso
-        numero="2"
+        numero={2}
         titulo="Crea una cotización"
         imagenes={[{ src: '/img/img-12-editor-cotizacion.png', alt: 'Editor cotización' }]}
       >
-        Haz clic en <strong>Nueva cotización</strong>. Selecciona la empresa y
-        contacto, elige los productos del catálogo y el sistema calcula
-        subtotal, IVA y total automáticamente.
+        <p>
+          Haz clic en <strong>Nueva cotización</strong>. Selecciona la empresa
+          y contacto, elige los productos del catálogo y el sistema calcula
+          subtotal, IVA y total automáticamente.
+        </p>
       </Paso>
 
       <Paso
-        numero="3"
+        numero={3}
         titulo="Genera el PDF"
         imagenes={[{ src: '/img/img-13-pdf-browser.png', alt: 'PDF en browser' }]}
       >
-        Con un clic genera un PDF profesional con tu logo y datos fiscales.
-        Puedes guardarlo o enviarlo directamente.
+        <p>
+          Con un clic genera un PDF profesional con tu logo y datos fiscales.
+          Puedes guardarlo o enviarlo directamente al cliente.
+        </p>
       </Paso>
 
       <Paso
-        numero="4"
+        numero={4}
         titulo="Envía al cliente"
+        imagenes={[{ src: '/img/img-14-portal-cliente.png', alt: 'Portal del cliente' }]}
       >
-        Usa el botón <strong>Enviar por email</strong> para que el cliente
-        reciba la cotización con un link al Portal del Cliente. También puedes
-        enviarla por WhatsApp.
+        <p>
+          Usa el botón <strong>Enviar por email</strong> para que el cliente
+          reciba la cotización con un link al Portal del Cliente. También
+          puedes enviarla por WhatsApp.
+        </p>
       </Paso>
 
       <Paso
-        numero="5"
+        numero={5}
         titulo="Portal del Cliente"
-        imagenes={[
-          { src: '/img/img-14-portal-cliente.png',  alt: 'Portal del cliente' },
-          { src: '/img/img-15-modal-aceptar.png',   alt: 'Modal aceptar cotización' },
-          { src: '/img/img-16-cot-aceptada.png',    alt: 'Cotización aceptada' },
-        ]}
+        imagenes={[{ src: '/img/img-15-modal-aceptar.png', alt: 'Modal aceptar cotización' }]}
       >
-        Tu cliente recibe un link único y seguro donde puede ver el detalle
-        completo, los términos y decidir si acepta o rechaza — sin necesidad
-        de cuenta ni contraseña.
+        <p>
+          Tu cliente recibe un link único y seguro donde puede ver el detalle
+          completo, los términos y decidir si acepta o rechaza — sin necesidad
+          de cuenta ni contraseña.
+        </p>
       </Paso>
 
       <Paso
-        numero="6"
+        numero={6}
         titulo="Pedido automático en CONTPAQi"
+        imagenes={[{ src: '/img/img-16-cot-aceptada.png', alt: 'Cotización aceptada' }]}
+        tip="Sin que nadie tenga que re-capturar nada: el pedido aparece en CONTPAQi con serie PCRM al siguiente ciclo del Bridge."
       >
-        Cuando el cliente acepta, PULSO notifica a tu equipo por email y en el
-        próximo ciclo del Bridge crea automáticamente el Pedido en CONTPAQi
-        con serie <strong>PCRM</strong> — sin que nadie tenga que re-capturar
-        nada.
+        <p>
+          Cuando el cliente acepta, PULSO notifica a tu equipo por email y en
+          el próximo ciclo del Bridge crea automáticamente el Pedido en
+          CONTPAQi.
+        </p>
       </Paso>
     </Seccion>
   )
@@ -562,42 +457,46 @@ function Pipeline() {
   return (
     <Seccion
       id="pipeline"
-      eyebrow="Sección 4"
-      titulo="Pipeline y seguimiento de oportunidades"
-      intro="Visualiza tu pipeline, mueve oportunidades entre etapas y revisa la historia automática."
+      numero={4}
+      titulo="Pipeline y seguimiento"
+      intro="Visualiza tu pipeline, mueve oportunidades entre etapas y revisa la historia automática de cada cliente."
     >
       <Paso
-        numero="1"
+        numero={1}
         titulo="Kanban de ventas"
-        imagenes={[
-          { src: '/img/img-16b-kanban.png',         alt: 'Kanban de ventas' },
-          { src: '/img/img-17-kanban-tarjeta.png',  alt: 'Tarjeta de oportunidad en Kanban' },
-        ]}
+        imagenes={[{ src: '/img/img-16b-kanban.png', alt: 'Kanban de ventas' }]}
       >
-        En <strong>Oportunidades</strong> verás tu pipeline visual. Arrastra
-        las tarjetas entre columnas para actualizar la etapa. Cada tarjeta
-        muestra el valor, la empresa y la probabilidad.
+        <p>
+          En <strong>Oportunidades</strong> verás tu pipeline visual. Arrastra
+          las tarjetas entre columnas para actualizar la etapa. Cada tarjeta
+          muestra el valor, la empresa y la probabilidad.
+        </p>
       </Paso>
 
       <Paso
-        numero="2"
+        numero={2}
         titulo="Detalle de la oportunidad"
         imagenes={[{ src: '/img/img-18-detalle-oportunidad.png', alt: 'Detalle oportunidad' }]}
       >
-        Haz clic en cualquier oportunidad para ver su ficha completa: valor,
-        probabilidad, empresa, contacto y las etapas disponibles para avanzar.
+        <p>
+          Haz clic en cualquier oportunidad para ver su ficha completa: valor,
+          probabilidad, empresa, contacto y las etapas disponibles para
+          avanzar.
+        </p>
       </Paso>
 
       <Paso
-        numero="3"
-        titulo="Historia automática (El Chismoso)"
+        numero={3}
+        titulo='Historia automática ("El Chismoso")'
         imagenes={[{ src: '/img/img-19b-chismoso.png', alt: 'El Chismoso timeline' }]}
+        tip='Nunca más preguntarás "¿en qué quedamos con este cliente?".'
       >
-        La pestaña <strong>Historia</strong> registra automáticamente TODO lo
-        que pasa con esa oportunidad: cambios de etapa, cotizaciones enviadas,
-        cuándo el cliente abrió el portal, si aceptó o rechazó, y el pedido
-        generado en CONTPAQi. <em>Nunca más preguntarás "¿en qué quedamos con
-        este cliente?"</em>
+        <p>
+          La pestaña <strong>Historia</strong> registra automáticamente todo
+          lo que pasa con esa oportunidad: cambios de etapa, cotizaciones
+          enviadas, cuándo el cliente abrió el portal, si aceptó o rechazó,
+          y el pedido generado en CONTPAQi.
+        </p>
       </Paso>
     </Seccion>
   )
@@ -608,34 +507,45 @@ function Pipeline() {
 // ============================================================================
 
 function Movil() {
+  const screenshots = [
+    { src: '/img/img-m1-login-movil.png',     caption: 'Login' },
+    { src: '/img/img-m4-dashboard-movil.png', caption: 'Dashboard' },
+    { src: '/img/img-m2-empresas-movil.png',  caption: 'Empresas' },
+    { src: '/img/img-m3-sidebar-movil.png',   caption: 'Menú' },
+  ]
+
   return (
     <Seccion
       id="movil"
-      eyebrow="Sección 5"
+      numero={5}
       titulo="Accede desde donde estés"
       intro="PULSO CRM es 100% responsivo. Funciona perfectamente en cualquier dispositivo — celular, tablet, computadora… o incluso desde la pantalla de tu Tesla."
     >
-      {/* Grid 2x2 de capturas móviles. Cada Placeholder con variant=mobile
-          se renderiza como un marco de teléfono (~300px). El grid se
-          ajusta a un wrap natural cuando no caben los 4. */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
-        <Placeholder src="/img/img-m1-login-movil.png"      alt="Login móvil" />
-        <Placeholder src="/img/img-m4-dashboard-movil.png"  alt="Dashboard móvil" />
-        <Placeholder src="/img/img-m2-empresas-movil.png"   alt="Empresas móvil" />
-        <Placeholder src="/img/img-m3-sidebar-movil.png"    alt="Sidebar móvil" />
+      <div className="grid-movil">
+        {screenshots.map((s) => (
+          <div key={s.src} className="grid-movil-item">
+            <img
+              src={s.src}
+              alt={s.caption}
+              loading="lazy"
+              onError={(e) => { e.currentTarget.style.display = 'none' }}
+              className="img-movil"
+            />
+            <p>{s.caption}</p>
+          </div>
+        ))}
       </div>
 
-      {/* Tesla — ultra-wide. El componente Placeholder con variant=tesla
-          ya impone aspect 21/9 + max-h-[500px] + object-cover + rounded-xl. */}
-      <div>
-        <Placeholder
-          src="/img/img-tesla.png"
-          alt="PULSO CRM corriendo en pantalla de Tesla"
-        />
-        <p className="mt-3 text-center text-sm text-slate-600 italic">
-          PULSO CRM — accesible desde cualquier lugar
-        </p>
-      </div>
+      <img
+        src="/img/img-tesla.png"
+        alt="PULSO CRM corriendo en pantalla de Tesla"
+        loading="lazy"
+        onError={(e) => { e.currentTarget.style.display = 'none' }}
+        className="img-tesla"
+      />
+      <p style={{ textAlign: 'center', fontSize: 13, color: '#64748b', fontStyle: 'italic', marginTop: 10 }}>
+        PULSO CRM — accesible desde cualquier lugar
+      </p>
     </Seccion>
   )
 }
@@ -646,59 +556,39 @@ function Movil() {
 
 function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <Logo />
-            <div>
-              <div className="font-bold text-white">PULSO CRM</div>
-              <div className="text-xs text-slate-400">Centro de Ayuda</div>
-            </div>
-          </div>
-          <p className="mt-4 text-sm text-slate-400 max-w-xs">
-            CRM mexicano con integración nativa a CONTPAQi Comercial Pro.
-          </p>
-        </div>
+    <footer className="bg-[#0052CC] text-white mt-16">
+      <div className="max-w-[860px] mx-auto px-5 py-12 text-center">
+        <h3 className="text-xl font-bold">¿Tienes dudas? Estamos aquí para ayudarte</h3>
+        <p className="mt-2 text-sm text-white/85">
+          Lunes a viernes 9 am – 6 pm hora Ciudad de México.
+        </p>
 
-        <div>
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
-            ¿Necesitas ayuda?
-          </div>
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
-            href="https://wa.me/523341624372"
+            href={URL_WHATSAPP}
             target="_blank"
             rel="noreferrer"
-            className="block text-sm hover:text-white transition"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-lg text-sm font-semibold transition"
           >
-            WhatsApp: +52 334 162 4372
-          </a>
-          <a
-            href="mailto:asistencia@pulsocrm.com.mx"
-            className="block text-sm mt-1 hover:text-white transition"
-          >
-            asistencia@pulsocrm.com.mx
-          </a>
-        </div>
-
-        <div>
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
-            Plataforma
-          </div>
-          <a
-            href={URL_CRM}
-            className="inline-flex items-center gap-1.5 text-sm text-white hover:text-blue-300 transition"
-          >
-            Volver al CRM
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
             </svg>
+            WhatsApp +52 334 162 4372
+          </a>
+          <a
+            href={`mailto:${EMAIL_SOPORTE}`}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-semibold border border-white/30 transition"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            {EMAIL_SOPORTE}
           </a>
         </div>
-      </div>
 
-      <div className="border-t border-slate-800 py-5 text-center text-xs text-slate-500">
-        © 2026 PULSO CRM · COMPURIGHT · Morelia, México
+        <div className="mt-10 pt-6 border-t border-white/20 text-xs text-white/70">
+          © 2026 PULSO CRM · COMPURIGHT · Morelia, México
+        </div>
       </div>
     </footer>
   )

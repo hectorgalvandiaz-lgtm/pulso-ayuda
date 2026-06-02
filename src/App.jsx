@@ -207,7 +207,10 @@ function Paso({ numero, titulo, children, imagenes = [] }) {
         </div>
       </div>
       <div className="lg:col-span-7">
-        <div className={imagenes.length > 1 ? 'grid grid-cols-1 sm:grid-cols-2 gap-3' : ''}>
+        {/* Apilamos imágenes verticalmente cuando hay varias para que cada
+            captura mantenga su tamaño legible (la grid horizontal achicaba
+            los screenshots desktop al meterlos en 2 columnas). */}
+        <div className="space-y-4">
           {imagenes.map((img) => (
             <Placeholder key={img.src} src={img.src} alt={img.alt} />
           ))}
@@ -218,28 +221,100 @@ function Paso({ numero, titulo, children, imagenes = [] }) {
 }
 
 /**
- * Imagen con fallback a placeholder gris cuando el archivo aún no existe.
- * Héctor reemplazará los PNGs en /public/img/.
+ * Renderiza imágenes de la guía con la variante correcta:
+ *
+ *   desktop  → screenshot en marco "navegador": w-full, sombra, borde,
+ *              rounded-xl. Aspect-video con object-contain para no
+ *              cropear el screenshot real (max-h 600px).
+ *   mobile   → marco tipo teléfono: max-w-[300px] mx-auto, sombra
+ *              dramática, esquinas muy redondeadas. Aspect 9:19.5.
+ *   tesla    → ultra-wide: aspect 21/9 con max-h-[500px], object-cover.
+ *
+ * La variante se detecta por nombre de archivo (img-m*, img-tesla) pero
+ * puede forzarse con la prop `variant`.
+ *
+ * El "placeholder" gris (nombre del archivo + alt) vive DEBAJO del <img>
+ * y solo se ve cuando el <img> falla y se auto-oculta vía onError. El
+ * tamaño del contenedor es el mismo cargue o no la imagen → cero
+ * salto de layout cuando finalmente subes los PNGs reales.
  */
-function Placeholder({ src, alt }) {
+function detectarVariante(src) {
+  if (!src) return 'desktop'
+  if (src.includes('tesla')) return 'tesla'
+  if (/\/img-m\d/i.test(src)) return 'mobile'
+  return 'desktop'
+}
+
+function Placeholder({ src, alt, variant }) {
+  const v = variant || detectarVariante(src)
+
+  if (v === 'mobile') {
+    return (
+      <div className="mx-auto w-full max-w-[260px] sm:max-w-[300px]">
+        <div className="relative aspect-[9/19.5] rounded-[2.25rem] border-[7px] border-slate-900 bg-slate-100 overflow-hidden shadow-2xl">
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            onError={(e) => { e.currentTarget.style.display = 'none' }}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+          <FallbackImg src={src} alt={alt} pequeno />
+        </div>
+      </div>
+    )
+  }
+
+  if (v === 'tesla') {
+    return (
+      <div className="relative w-full rounded-xl border border-slate-200 bg-slate-900 overflow-hidden shadow-lg">
+        <div className="relative aspect-[21/9] max-h-[500px]">
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            onError={(e) => { e.currentTarget.style.display = 'none' }}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <FallbackImg src={src} alt={alt} icono="🚗" oscuro />
+        </div>
+      </div>
+    )
+  }
+
+  // desktop screenshot
   return (
-    <div className="relative aspect-video rounded-lg border border-slate-200 bg-slate-100 overflow-hidden group">
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        onError={(e) => {
-          e.currentTarget.style.display = 'none'
-        }}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 text-xs p-4 text-center pointer-events-none">
-        <svg className="w-8 h-8 mb-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+    <div className="relative w-full rounded-xl border border-slate-200 bg-slate-100 overflow-hidden shadow-xl">
+      <div className="relative aspect-video max-h-[600px]">
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+          className="absolute inset-0 w-full h-full object-contain"
+        />
+        <FallbackImg src={src} alt={alt} />
+      </div>
+    </div>
+  )
+}
+
+function FallbackImg({ src, alt, icono, pequeno = false, oscuro = false }) {
+  const colorTxt = oscuro ? 'text-slate-500' : 'text-slate-400'
+  return (
+    <div className={`absolute inset-0 flex flex-col items-center justify-center text-xs p-4 text-center pointer-events-none ${colorTxt}`}>
+      {icono ? (
+        <span className={pequeno ? 'text-3xl mb-1' : 'text-5xl mb-2'}>{icono}</span>
+      ) : (
+        <svg
+          className={pequeno ? 'w-6 h-6 mb-1.5' : 'w-8 h-8 mb-2'}
+          fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
-        <div className="font-mono opacity-70">{src.replace('/img/', '')}</div>
-        <div className="mt-1 italic">{alt}</div>
-      </div>
+      )}
+      <div className="font-mono opacity-70 break-all max-w-full">{src ? src.replace('/img/', '') : ''}</div>
+      {alt && <div className="mt-1 italic max-w-full">{alt}</div>}
     </div>
   )
 }
@@ -540,30 +615,26 @@ function Movil() {
       titulo="Accede desde donde estés"
       intro="PULSO CRM es 100% responsivo. Funciona perfectamente en cualquier dispositivo — celular, tablet, computadora… o incluso desde la pantalla de tu Tesla."
     >
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-2xl mx-auto">
+      {/* Grid 2x2 de capturas móviles. Cada Placeholder con variant=mobile
+          se renderiza como un marco de teléfono (~300px). El grid se
+          ajusta a un wrap natural cuando no caben los 4. */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
         <Placeholder src="/img/img-m1-login-movil.png"      alt="Login móvil" />
         <Placeholder src="/img/img-m4-dashboard-movil.png"  alt="Dashboard móvil" />
         <Placeholder src="/img/img-m2-empresas-movil.png"   alt="Empresas móvil" />
         <Placeholder src="/img/img-m3-sidebar-movil.png"    alt="Sidebar móvil" />
       </div>
 
-      <div className="relative w-full rounded-xl border border-slate-200 bg-slate-100 overflow-hidden">
-        <div className="aspect-[21/9] relative">
-          <img
-            src="/img/img-tesla.png"
-            alt="PULSO CRM corriendo en pantalla de Tesla"
-            loading="lazy"
-            onError={(e) => { e.currentTarget.style.display = 'none' }}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 text-xs p-4 text-center pointer-events-none">
-            <span className="text-5xl mb-2">🚗</span>
-            <div className="font-mono opacity-70">img-tesla.png</div>
-          </div>
-        </div>
-        <div className="px-4 py-3 text-center text-sm text-slate-600 italic bg-white">
+      {/* Tesla — ultra-wide. El componente Placeholder con variant=tesla
+          ya impone aspect 21/9 + max-h-[500px] + object-cover + rounded-xl. */}
+      <div>
+        <Placeholder
+          src="/img/img-tesla.png"
+          alt="PULSO CRM corriendo en pantalla de Tesla"
+        />
+        <p className="mt-3 text-center text-sm text-slate-600 italic">
           PULSO CRM — accesible desde cualquier lugar
-        </div>
+        </p>
       </div>
     </Seccion>
   )

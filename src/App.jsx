@@ -5,7 +5,7 @@ import { useState } from 'react'
 // ============================================================================
 
 const URL_CRM = 'https://www.pulsocrm.com.mx'
-const URL_WHATSAPP = 'https://wa.me/523341624372'
+const URL_WHATSAPP = 'https://wa.me/5214439800967'
 const EMAIL_SOPORTE = 'asistencia@pulsocrm.com.mx'
 
 const SECCIONES_NAV = [

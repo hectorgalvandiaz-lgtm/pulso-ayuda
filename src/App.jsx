@@ -13,6 +13,7 @@ const SECCIONES_NAV = [
   { id: 'contpaqi',       label: 'CONTPAQi' },
   { id: 'cotizaciones',   label: 'Cotizaciones' },
   { id: 'pipeline',       label: 'Pipeline' },
+  { id: 'cobro',          label: 'PULSO Cobro' },
   { id: 'movil',          label: 'Móvil' },
 ]
 
@@ -30,6 +31,7 @@ export default function App() {
         <Contpaqi />
         <Cotizaciones />
         <Pipeline />
+        <Cobro />
         <Movil />
       </main>
       <Footer />
@@ -506,6 +508,122 @@ function Pipeline() {
 // SECCIÓN 5: MÓVIL
 // ============================================================================
 
+function Cobro() {
+  return (
+    <Seccion
+      id="cobro"
+      numero={5}
+      titulo="PULSO Cobro — Cobranza automatizada"
+      intro="Reúne tus cuentas por cobrar, clasifica cada factura por su nivel de vencimiento y cobra más rápido con links de pago SPEI y recordatorios automáticos por WhatsApp y email."
+    >
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Antes de empezar</span>
+          <h3>¿Qué es y qué necesitas?</h3>
+          <p>PULSO Cobro es el módulo de cobranza automatizada de PULSO. Funciona con o sin el Bridge de CONTPAQi.</p>
+          <h4>Requisitos</h4>
+          <ul>
+            <li>Plan <strong>Profesional</strong> o <strong>Enterprise</strong>.</li>
+            <li>La función <strong>PULSO Cobro</strong> activada por el equipo de PULSO.</li>
+            <li>Una cuenta de <strong>Conekta</strong> para los links de pago SPEI.</li>
+          </ul>
+          <h4>Con y sin Bridge</h4>
+          <ul>
+            <li><strong>Con Bridge CONTPAQi:</strong> las facturas por cobrar se sincronizan solas desde CONTPAQi y, al pagarse, el abono se aplica de vuelta en CONTPAQi.</li>
+            <li><strong>Sin Bridge:</strong> capturas las facturas manualmente en PULSO y llevas la cobranza igual.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 1</span>
+          <h3>Configuración inicial</h3>
+          <ul>
+            <li>Al activarse verás <strong>💰 PULSO Cobro</strong> en el menú lateral.</li>
+            <li>En <strong>Configuración → PULSO Cobro</strong> pega tu <strong>API Key de Conekta</strong> (se guarda cifrada y nunca se vuelve a mostrar).</li>
+            <li>Elige los <strong>métodos de pago</strong> (SPEI y/o Tarjeta).</li>
+            <li>Define los <strong>días por nivel</strong>: Preventivo, Correctivo y Crítico (por defecto 5, 15 y 30 días).</li>
+          </ul>
+          <div className="tip-box"><p>Cada cliente usa su propia API Key de Conekta — nunca una compartida — para que los pagos entren directo a su cuenta.</p></div>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 2</span>
+          <h3>Sincronización de facturas</h3>
+          <ul>
+            <li><strong>Con Bridge:</strong> automático en cada ciclo (~cada 15 min). No haces nada.</li>
+            <li><strong>Sin Bridge:</strong> entra a <strong>PULSO Cobro → “＋ Nueva factura”</strong> y captura empresa, contacto, folio, fechas y monto. PULSO calcula saldo, días vencido y nivel.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 3</span>
+          <h3>Dashboard de cobranza</h3>
+          <p>El tablero resume tu cartera con cuatro indicadores: <strong>Total CxC</strong>, <strong>Vencido</strong>, <strong>Cobrado</strong> y <strong>Tasa de cobro</strong>. La tabla lista cada factura con su cliente, folio, vencimiento, días vencido, saldo y nivel. Filtra por nivel, estatus de pago o fechas.</p>
+          <div className="nivel-legend">
+            <span><i style={{ background: '#10b981' }}></i>Al día</span>
+            <span><i style={{ background: '#3b82f6' }}></i>Preventivo</span>
+            <span><i style={{ background: '#f59e0b' }}></i>Correctivo</span>
+            <span><i style={{ background: '#ef4444' }}></i>Crítico</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 4</span>
+          <h3>Gestión de una factura</h3>
+          <ul>
+            <li><strong>Generar link SPEI:</strong> crea una CLABE única para esa factura y cópiala con un clic.</li>
+            <li><strong>Enviar por WhatsApp:</strong> con una plantilla aprobada; las variables se pre-llenan solas.</li>
+            <li><strong>Enviar por Email:</strong> con asunto y cuerpo pre-llenados.</li>
+            <li><strong>Marcar como pagado manualmente:</strong> para pagos en efectivo o fuera de PULSO.</li>
+          </ul>
+          <p>Cada factura conserva su historial de links de pago y de envíos.</p>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 5</span>
+          <h3>Campañas de cobranza</h3>
+          <p>Una campaña envía recordatorios en lote a las facturas de un nivel. Configura nombre, nivel, rango de días vencido, canal (WhatsApp/Email/ambos) y la plantilla aprobada. Ejecuta con <strong>“Ejecutar ahora”</strong> o deja que corra sola si activas las campañas automáticas. PULSO omite una factura si ya recibió recordatorio en las últimas 24 horas.</p>
+          <h4>Variables disponibles en las plantillas</h4>
+          <div>
+            <span className="var-chip">{'{nombre}'}</span>
+            <span className="var-chip">{'{folio}'}</span>
+            <span className="var-chip">{'{monto}'}</span>
+            <span className="var-chip">{'{dias_vencido}'}</span>
+            <span className="var-chip">{'{fecha_vencimiento}'}</span>
+          </div>
+          <div className="tip-box"><p>La plantilla de WhatsApp debe usar exactamente esos nombres de variable; si una no está en la lista, ese envío se marca como fallido y el resto de la campaña continúa.</p></div>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 6</span>
+          <h3>Conciliación e integración CONTPAQi</h3>
+          <p>Cuando tu cliente paga la CLABE SPEI, Conekta avisa a PULSO. PULSO marca el link como pagado, actualiza la factura (saldo y estatus) y notifica al cliente y al agente. Para pagos fuera de PULSO usa “Marcar como pagado manualmente”.</p>
+          <h4>Aplicación en CONTPAQi (con Bridge)</h4>
+          <ul>
+            <li>El Bridge aplica el abono de vuelta en CONTPAQi automáticamente.</li>
+            <li>Valida que no haya sobrepago y que el documento no esté ya pagado antes de aplicar.</li>
+            <li>Requiere Bridge <strong>V1.0.6</strong> o superior con la cobranza activada.</li>
+          </ul>
+        </div>
+      </div>
+    </Seccion>
+  )
+}
+
+// ============================================================================
+
 function Movil() {
   const screenshots = [
     { src: '/img/img-m1-login-movil.png',     caption: 'Login' },
@@ -517,7 +635,7 @@ function Movil() {
   return (
     <Seccion
       id="movil"
-      numero={5}
+      numero={6}
       titulo="Accede desde donde estés"
       intro="PULSO CRM es 100% responsivo. Funciona perfectamente en cualquier dispositivo — celular, tablet, computadora… o incluso desde la pantalla de tu Tesla."
     >

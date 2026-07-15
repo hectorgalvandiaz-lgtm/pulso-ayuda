@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ============================================================================
 // CONSTANTES
@@ -23,6 +23,24 @@ const SECCIONES_NAV = [
 // ============================================================================
 
 export default function App() {
+  // Scroll al ancla (#seccion) cuando se llega desde un enlace externo. El SPA
+  // monta después de que el navegador intenta el scroll inicial, así que lo
+  // reintentamos tras montar y de nuevo al cargar imágenes (evita quedar arriba).
+  useEffect(() => {
+    const id = decodeURIComponent((window.location.hash || '').replace('#', ''))
+    if (!id) return undefined
+    let cancelado = false
+    const irAlAncla = () => {
+      if (cancelado) return
+      const el = document.getElementById(id)
+      if (el) el.scrollIntoView({ block: 'start' })
+    }
+    const t1 = setTimeout(irAlAncla, 120)
+    const t2 = setTimeout(irAlAncla, 700)
+    window.addEventListener('load', irAlAncla)
+    return () => { cancelado = true; clearTimeout(t1); clearTimeout(t2); window.removeEventListener('load', irAlAncla) }
+  }, [])
+
   return (
     <>
       <Navbar />

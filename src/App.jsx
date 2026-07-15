@@ -14,6 +14,7 @@ const SECCIONES_NAV = [
   { id: 'cotizaciones',   label: 'Cotizaciones' },
   { id: 'pipeline',       label: 'Pipeline' },
   { id: 'cobro',          label: 'PULSO Cobro' },
+  { id: 'whatsapp-configuracion', label: 'WhatsApp' },
   { id: 'movil',          label: 'Móvil' },
 ]
 
@@ -32,6 +33,7 @@ export default function App() {
         <Cotizaciones />
         <Pipeline />
         <Cobro />
+        <WhatsappConfiguracion />
         <Movil />
       </main>
       <Footer />
@@ -624,6 +626,84 @@ function Cobro() {
 
 // ============================================================================
 
+function WhatsappConfiguracion() {
+  return (
+    <Seccion
+      id="whatsapp-configuracion"
+      numero={6}
+      titulo="Conecta tu número de WhatsApp Business a PULSO"
+      intro="Con tu propio número, tus clientes ven los mensajes desde el número de tu empresa —no desde uno genérico compartido— y tienes control total de tus conversaciones. Es un proceso de 3 pasos que toma menos de 30 minutos."
+    >
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Antes de empezar</span>
+          <h3>¿Por qué necesito mi propio número?</h3>
+          <p>Cuando configuras tu número propio, tus clientes ven mensajes desde el número de <strong>TU empresa</strong>, no desde un número genérico compartido. Además tienes control total de tus conversaciones sin compartir línea con otros usuarios de PULSO.</p>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 1</span>
+          <h3>Crea tu cuenta en Meta Business Manager <em>(~5 minutos)</em></h3>
+          <ul>
+            <li>Entra a <strong>business.facebook.com</strong></li>
+            <li>Haz clic en <strong>“Crear cuenta”</strong></li>
+            <li>Ingresa el nombre de tu empresa, tu nombre y tu email</li>
+            <li>Sigue el proceso de verificación</li>
+          </ul>
+          <div className="tip-box"><p>Si ya tienes cuenta en Meta Business Manager, salta al Paso 2.</p></div>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 2</span>
+          <h3>Solicita tu cuenta WhatsApp Business API <em>(~10 minutos + 1-3 días de aprobación de Meta)</em></h3>
+          <ul>
+            <li>Dentro de Meta Business Manager entra a: <strong>Configuración → Cuentas de WhatsApp → Agregar</strong></li>
+            <li>Selecciona <strong>“WhatsApp Business API”</strong></li>
+            <li>Ingresa el número de teléfono que quieres usar (puede ser fijo o celular, debe estar disponible para recibir una llamada o SMS de verificación)</li>
+            <li>Verifica el número con el código que Meta te envía</li>
+            <li>Meta revisa y aprueba la solicitud en <strong>1-3 días hábiles</strong></li>
+          </ul>
+          <div className="tip-box"><p>Recibirás un email de Meta cuando esté aprobado.</p></div>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 3</span>
+          <h3>Conecta tu número a PULSO <em>(~5 minutos, una vez aprobado por Meta)</em></h3>
+          <ul>
+            <li>Entra a <strong>PULSO → Configuración → Integraciones → WhatsApp</strong></li>
+            <li>Haz clic en <strong>“Conectar número propio”</strong></li>
+            <li>Inicia sesión con tu cuenta de Meta Business Manager</li>
+            <li>Selecciona la cuenta de WhatsApp que creaste</li>
+            <li>Autoriza los permisos que PULSO solicita</li>
+            <li>Listo — tu <strong>Bandeja Unificada</strong> ya muestra tus conversaciones de WhatsApp en tiempo real</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Preguntas frecuentes</span>
+          <h3>Dudas comunes</h3>
+          <h4>¿Puedo usar mi número personal de WhatsApp?</h4>
+          <p>No directamente. El número que conectes a la API de WhatsApp Business no puede tener la app de WhatsApp instalada en un celular al mismo tiempo. Se recomienda usar un número dedicado para tu empresa.</p>
+          <h4>¿Tiene costo?</h4>
+          <p>Meta cobra por conversaciones iniciadas por la empresa (aproximadamente $0.05–0.08 USD cada una). Las conversaciones que inicia el cliente son gratuitas las primeras 24 horas. PULSO no cobra nada adicional por la integración.</p>
+          <h4>¿Qué pasa con las conversaciones mientras espero la aprobación de Meta?</h4>
+          <p>Puedes usar PULSO normalmente. WhatsApp quedará disponible en tu Bandeja en cuanto conectes tu número aprobado.</p>
+          <h4>¿Necesitas ayuda?</h4>
+          <p>Escríbenos a <strong>ceo@pulsocrm.com.mx</strong> o desde el chat de soporte dentro de PULSO. También ofrecemos el servicio de configuración asistida en una sola sesión.</p>
+        </div>
+      </div>
+    </Seccion>
+  )
+}
+
 function Movil() {
   const screenshots = [
     { src: '/img/img-m1-login-movil.png',     caption: 'Login' },
@@ -635,7 +715,7 @@ function Movil() {
   return (
     <Seccion
       id="movil"
-      numero={6}
+      numero={7}
       titulo="Accede desde donde estés"
       intro="PULSO CRM es 100% responsivo. Funciona perfectamente en cualquier dispositivo — celular, tablet, computadora… o incluso desde la pantalla de tu Tesla."
     >

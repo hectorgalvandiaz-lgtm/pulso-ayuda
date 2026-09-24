@@ -11,6 +11,7 @@ const EMAIL_SOPORTE = 'asistencia@pulsocrm.com.mx'
 const SECCIONES_NAV = [
   { id: 'primeros-pasos', label: 'Primeros pasos' },
   { id: 'contpaqi',       label: 'CONTPAQi' },
+  { id: 'bridge-instalacion', label: 'Instalar el Bridge' },
   { id: 'cotizaciones',   label: 'Cotizaciones' },
   { id: 'pipeline',       label: 'Pipeline' },
   { id: 'cobro',          label: 'PULSO Cobro' },
@@ -48,6 +49,7 @@ export default function App() {
         <Hero />
         <PrimerosPasos />
         <Contpaqi />
+        <InstalarBridge />
         <Cotizaciones />
         <Pipeline />
         <Cobro />
@@ -351,10 +353,15 @@ function Contpaqi() {
         imagenes={[{ src: '/img/img-09b-config-json.png', alt: 'config.json en Notepad' }]}
       >
         <p>
-          Descarga el instalador <strong>PULSO Bridge</strong> en el servidor
-          donde corre CONTPAQi. Ejecuta{' '}
-          <span className="font-mono text-xs bg-slate-200 px-1.5 py-0.5 rounded">instalar_bridge.bat</span>{' '}
+          En el servidor donde corre CONTPAQi, descarga el instalador desde{' '}
+          <strong>Configuración → Bridge</strong> y ejecuta{' '}
+          <span className="font-mono text-xs bg-slate-200 px-1.5 py-0.5 rounded">PULSO-Bridge-Installer.exe</span>{' '}
           como Administrador. El instalador configura todo automáticamente.
+        </p>
+        <p>
+          <strong>Antes de descargarlo</strong>, revisa{' '}
+          <a href="#bridge-instalacion" className="underline">Instalar el Bridge</a>:
+          algunos antivirus borran sus programas si no se les indica que son de confianza.
         </p>
       </Paso>
 
@@ -388,11 +395,112 @@ function Contpaqi() {
 // SECCIÓN 3: COTIZACIONES
 // ============================================================================
 
+function InstalarBridge() {
+  const ruta = (t) => (
+    <span className="font-mono text-xs bg-slate-200 px-1.5 py-0.5 rounded">{t}</span>
+  )
+  return (
+    <Seccion
+      id="bridge-instalacion"
+      numero={3}
+      titulo="Instalar o actualizar el PULSO Bridge sin que lo borre el antivirus"
+      intro="Algunos antivirus borran los programas del Bridge en cuanto se descomprimen, porque todavía no los conocen. No es un virus: es un programa nuevo que el antivirus no ha visto antes. Se resuelve una sola vez, indicándole al antivirus una carpeta de confianza. Toma unos 5 minutos."
+    >
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Antes de empezar</span>
+          <h3>¿Cómo sé si me está pasando?</h3>
+          <ul>
+            <li>Al descomprimir el ZIP <strong>faltan archivos</strong>: debe haber cuatro programas ({ruta('PULSO-Bridge-Installer.exe')} y, dentro de {ruta('PULSOBridgeService')}, tres más).</li>
+            <li>Al abrir el instalador, Windows dice que <strong>no encuentra el archivo</strong> o no pasa nada.</li>
+            <li>El antivirus muestra un aviso de que <strong>eliminó o puso en cuarentena</strong> un archivo de PULSO.</li>
+          </ul>
+          <div className="tip-box"><p>Si ya te pasó, no hay problema: sigue estos pasos desde el principio y vuelve a descargar el Bridge.</p></div>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 1</span>
+          <h3>Crea la carpeta del Bridge <em>(~1 minuto)</em></h3>
+          <p>En el servidor donde corre CONTPAQi, crea esta carpeta si no existe:</p>
+          <ul>
+            <li>{ruta('C:\\pulso-bridge')}</li>
+          </ul>
+          <p>Ahí vive todo el Bridge. Dentro de ella crea también {ruta('C:\\pulso-bridge\\instaladores')}: ahí vas a guardar lo que descargues.</p>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 2</span>
+          <h3>Dile al antivirus que esa carpeta es de confianza <em>(~3 minutos)</em></h3>
+          <h4>Si usas el antivirus de Windows (Microsoft Defender)</h4>
+          <ul>
+            <li>Abre <strong>Seguridad de Windows</strong> (búscalo en el menú Inicio).</li>
+            <li>Entra a <strong>Protección antivirus y contra amenazas</strong>.</li>
+            <li>En <strong>Configuración de antivirus y protección contra amenazas</strong>, haz clic en <strong>Administrar la configuración</strong>.</li>
+            <li>Baja hasta <strong>Exclusiones</strong> → <strong>Agregar o quitar exclusiones</strong>.</li>
+            <li><strong>Agregar una exclusión</strong> → <strong>Carpeta</strong> → elige {ruta('C:\\pulso-bridge')}.</li>
+          </ul>
+          <h4>Si usas otro antivirus (ESET, Kaspersky, Norton, McAfee, Bitdefender, Sophos…)</h4>
+          <p>Todos tienen una opción de <strong>exclusiones</strong> o <strong>excepciones</strong>. Agrega la carpeta {ruta('C:\\pulso-bridge')} completa.</p>
+          <div className="tip-box"><p>En muchas empresas el antivirus lo administra el área de sistemas o el proveedor de soporte, y el equipo no deja cambiarlo. Si es tu caso, pídeles que agreguen la exclusión de la carpeta <strong>C:\pulso-bridge</strong>. Puedes reenviarles esta página.</p></div>
+          <h4>¿Es seguro?</h4>
+          <p>Sí. Tu antivirus sigue protegiendo todo el equipo; solo deja de revisar esa carpeta. <strong>No apagues el antivirus completo</strong>: no hace falta.</p>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 3</span>
+          <h3>Descarga y descomprime en la carpeta de instaladores <em>(~1 minuto)</em></h3>
+          <ul>
+            <li>En PULSO entra a <strong>Configuración → Bridge</strong> y descarga el ZIP.</li>
+            <li>Guárdalo (o muévelo) en {ruta('C:\\pulso-bridge\\instaladores')}.</li>
+            <li>Clic derecho sobre el ZIP → <strong>Extraer todo…</strong> → deja que cree una carpeta nueva ahí mismo.</li>
+          </ul>
+          <div className="tip-box"><p><strong>Nunca lo descomprimas dentro de {ruta('C:\\pulso-bridge\\pulso-bridge\\dist')}</strong>. Ésa es la carpeta del Bridge que ya está trabajando, y Windows no deja reemplazar sus archivos mientras corre. El instalador se encarga de eso.</p></div>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Paso 4</span>
+          <h3>Ejecuta el instalador <em>(~2 minutos)</em></h3>
+          <ul>
+            <li>Dentro de la carpeta que se creó, clic derecho sobre {ruta('PULSO-Bridge-Installer.exe')} → <strong>Ejecutar como administrador</strong>.</li>
+            <li>Si Windows muestra <strong>“Windows protegió su PC”</strong>, haz clic en <strong>Más información</strong> → <strong>Ejecutar de todas formas</strong>.</li>
+            <li><strong>Primera vez:</strong> captura los datos que te pide y termina con <strong>Instalar</strong>.</li>
+            <li><strong>Si ya tenías el Bridge:</strong> te ofrece <strong>Actualizar instalación</strong>. Tu configuración se conserva; no hay que capturar nada.</li>
+            <li>Al final debe decir <strong>“Instalación completada ✓”</strong> o <strong>“Actualización completada ✓”</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="paso solo">
+        <div className="paso-texto">
+          <span className="paso-num">Preguntas frecuentes</span>
+          <h3>Dudas comunes</h3>
+          <h4>¿Tengo que hacer esto cada vez que actualice?</h4>
+          <p>No. La exclusión se configura una sola vez. En las siguientes actualizaciones solo repites los pasos 3 y 4.</p>
+          <h4>El antivirus ya había borrado archivos. ¿Qué hago?</h4>
+          <p>Agrega la exclusión (paso 2), borra la carpeta que descomprimiste y vuelve a descargar el ZIP desde PULSO. No intentes recuperar los archivos de la cuarentena uno por uno.</p>
+          <h4>¿Necesitas ayuda?</h4>
+          <p>Escríbenos a <strong>{EMAIL_SOPORTE}</strong> o por WhatsApp. Podemos hacer la instalación contigo en una sesión.</p>
+        </div>
+      </div>
+    </Seccion>
+  )
+}
+
+// ============================================================================
+
 function Cotizaciones() {
   return (
     <Seccion
       id="cotizaciones"
-      numero={3}
+      numero={4}
       titulo="Cotizaciones y Portal del Cliente"
       intro="Cotizar, enviar al cliente y cerrar — todo en un solo flujo, con pedido CONTPAQi automático al aceptar."
     >
@@ -479,7 +587,7 @@ function Pipeline() {
   return (
     <Seccion
       id="pipeline"
-      numero={4}
+      numero={5}
       titulo="Pipeline y seguimiento"
       intro="Visualiza tu pipeline, mueve oportunidades entre etapas y revisa la historia automática de cada cliente."
     >
@@ -532,7 +640,7 @@ function Cobro() {
   return (
     <Seccion
       id="cobro"
-      numero={5}
+      numero={6}
       titulo="PULSO Cobro — Cobranza automatizada"
       intro="Reúne tus cuentas por cobrar, clasifica cada factura por su nivel de vencimiento y cobra más rápido con links de pago SPEI y recordatorios automáticos por WhatsApp y email."
     >
@@ -648,7 +756,7 @@ function WhatsappConfiguracion() {
   return (
     <Seccion
       id="whatsapp-configuracion"
-      numero={6}
+      numero={7}
       titulo="Conecta tu número de WhatsApp Business a PULSO"
       intro="Con tu propio número, tus clientes ven los mensajes desde el número de tu empresa —no desde uno genérico compartido— y tienes control total de tus conversaciones. Es un proceso de 3 pasos que toma menos de 30 minutos."
     >
@@ -733,7 +841,7 @@ function Movil() {
   return (
     <Seccion
       id="movil"
-      numero={7}
+      numero={8}
       titulo="Accede desde donde estés"
       intro="PULSO CRM es 100% responsivo. Funciona perfectamente en cualquier dispositivo — celular, tablet, computadora… o incluso desde la pantalla de tu Tesla."
     >

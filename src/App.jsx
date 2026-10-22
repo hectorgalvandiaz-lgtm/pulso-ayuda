@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 const URL_CRM = 'https://www.pulsocrm.com.mx'
 const URL_WHATSAPP = 'https://wa.me/5214439800967'
-const EMAIL_SOPORTE = 'asistencia@pulsocrm.com.mx'
+const EMAIL_SOPORTE = 'soporteps@pulsosoluciones.mx'
 
 const SECCIONES_NAV = [
   { id: 'primeros-pasos', label: 'Primeros pasos' },

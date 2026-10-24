@@ -1432,7 +1432,7 @@ function BookingsAsistencia() {
       id="bookings-asistencia"
       titulo="Asistencia a citas de Bookings con GoTo Meeting"
       etiqueta="nuevo"
-      intro="Si tus citas de Microsoft Bookings se atienden por GoTo Meeting, PULSO marca solo quién asistió y quién no, y te propone escribirle a quien faltó para reagendar."
+      intro="Si tus citas de Microsoft Bookings se atienden por GoTo Meeting, PULSO marca solo quién asistió y quién no."
     >
       <Bloque rotulo="Antes de empezar" titulo="Lo que necesitas">
         <ul>
@@ -1450,14 +1450,6 @@ function BookingsAsistencia() {
           <li>Si GoTo no reporta la reunión, la cita no se marca como “No asistió”: queda como estaba, con la leyenda <strong>GoTo no reportó la reunión</strong>.</li>
         </ul>
         <p>Lo ves en la ficha del contacto, en <strong>Citas de Bookings</strong> (con la nota <strong>Lo registró GoTo Meeting</strong>), y en su historial.</p>
-      </Bloque>
-
-      <Bloque rotulo="Con Andy" titulo="Propuesta para reagendar, con tu aprobación">
-        <p>Si tienes a Andy, tu asistente de operaciones, cuando alguien no llega a su cita Andy te propone escribirle para reagendar: por WhatsApp si tienes la plantilla aprobada y el número del contacto, o por correo con la liga para elegir otro horario.</p>
-        <ul>
-          <li>La propuesta aparece en la pantalla de Andy. <strong>No sale nada hasta que la apruebas</strong>; también puedes rechazarla o comentarle qué cambiar.</li>
-          <li>Solo se propone dentro de las 48 horas siguientes a la cita; después ya llegaría tarde.</li>
-        </ul>
       </Bloque>
     </Seccion>
   )

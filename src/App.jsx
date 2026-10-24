@@ -1471,7 +1471,7 @@ function Inmobiliaria() {
       intro="Para inmobiliarias y asesores: tu inventario con fotos, lo que busca cada cliente, visitas, fichas para compartir y rentas, conectados con tu CRM."
     >
       <Bloque rotulo="Antes de empezar" titulo="Cómo se activa">
-        <p>Se activa por cuenta; pídelo a <strong>{EMAIL_SOPORTE}</strong>. Ya activo, aparece el menú <strong>Inmobiliaria</strong> con las pestañas <strong>Tablero</strong>, <strong>Inmuebles</strong>, <strong>Interesados</strong>, <strong>Visitas</strong> y <strong>Rentas</strong>.</p>
+        <p>Se activa por cuenta. Un administrador llena el formulario <strong>Solicitar PULSO Inmobiliaria</strong> dentro de PULSO (<strong>Configuración → Plan → Verticales</strong>) y el equipo de ventas te contacta para activarlo. Ya activo, aparece el menú <strong>Inmobiliaria</strong> con las pestañas <strong>Tablero</strong>, <strong>Inmuebles</strong>, <strong>Interesados</strong>, <strong>Visitas</strong> y <strong>Rentas</strong>.</p>
       </Bloque>
 
       <Bloque rotulo="Inventario" titulo="Da de alta un inmueble con fotos">

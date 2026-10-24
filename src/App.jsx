@@ -682,7 +682,7 @@ function Cotizaciones() {
         <Tip>Disponible desde el plan <strong>Profesional</strong>. El teléfono que capturas en <strong>Configuración → Mi empresa</strong> se llena solo en el formato.</Tip>
       </Bloque>
 
-      <Bloque rotulo="Portal del Cliente" titulo={<>Comentarios del cliente en la cotización <Etiqueta tipo="proximamente" /></>}>
+      <Bloque rotulo="Portal del Cliente" titulo={<>Comentarios del cliente en la cotización <Etiqueta tipo="nuevo" /></>}>
         <p>Tu cliente podrá pedir cambios sin aceptar ni rechazar la cotización: en el portal verá <strong>¿Tienes algún comentario?</strong>, escribe su mensaje y lo manda con <strong>Enviar comentario</strong>. Después puede aceptar o rechazar cuando quiera.</p>
         <p>Tú recibes el aviso en la campanita y lo ves en el panel <strong>Comentarios del cliente</strong> dentro de la cotización.</p>
       </Bloque>
@@ -753,7 +753,7 @@ function Pipeline() {
         <p>La ficha de cada <strong>empresa</strong> y de cada <strong>contacto</strong> tiene la pestaña <strong>Oportunidades</strong>: lista las suyas con su fecha de alta y si están ganadas o perdidas, y desde ahí creas otra con <strong>Nueva oportunidad</strong>.</p>
       </Bloque>
 
-      <Bloque rotulo="Duplicados" titulo={<>Fusionar oportunidades duplicadas <Etiqueta tipo="proximamente" /></>}>
+      <Bloque rotulo="Duplicados" titulo={<>Fusionar oportunidades duplicadas <Etiqueta tipo="nuevo" /></>}>
         <p>Cuando la misma venta quedó registrada dos veces podrás juntarlas:</p>
         <ul>
           <li>Desde la tabla: marca las dos y haz clic en <strong>Fusionar</strong>.</li>
@@ -1083,7 +1083,7 @@ function Bandeja() {
           <li><strong style={{ color: '#38bdf8' }}>✓✓</strong> en azul: leído</li>
         </ul>
         <p>Pasa el cursor sobre las palomitas para ver la hora de cada paso. Si un mensaje no se pudo entregar, lo verás marcado con <strong>“No se entregó.”</strong></p>
-        <Tip>Se está activando en estos días. Solo los mensajes enviados a partir de entonces llevan palomitas.</Tip>
+        <Tip>Disponible desde el 24 de octubre de 2026. Solo los mensajes enviados a partir de esa fecha llevan palomitas.</Tip>
       </Bloque>
     </Seccion>
   )

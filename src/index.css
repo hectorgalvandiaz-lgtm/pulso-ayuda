@@ -118,6 +118,8 @@ body {
 .paso-texto h4 { font-size: 14px; font-weight: 700; color: #1e293b; margin: 16px 0 4px; }
 .paso-texto ul { margin: 8px 0 0; padding-left: 18px; }
 .paso-texto ul li { font-size: 15px; line-height: 1.7; color: #475569; margin: 4px 0; }
+.paso-texto ol { margin: 8px 0 0; padding-left: 20px; list-style: decimal; }
+.paso-texto ol li { font-size: 15px; line-height: 1.7; color: #475569; margin: 4px 0; }
 .nivel-legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 2px; }
 .nivel-legend span { display: inline-flex; align-items: center; gap: 7px; font-size: 13px;
   font-weight: 600; color: #334155; background: #fff; border: 1px solid #e2e8f0;

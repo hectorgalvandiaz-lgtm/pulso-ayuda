@@ -18,11 +18,17 @@ const SECCIONES_NAV = [
   { id: 'vendedores',     label: 'Vendedores' },
   { id: 'cotizaciones',   label: 'Cotizaciones', barra: true },
   { id: 'pipeline',       label: 'Oportunidades', barra: true },
+  { id: 'seguimiento-dias', label: 'Días de seguimiento' },
+  { id: 'proveedores-leads', label: 'Proveedores de leads' },
   { id: 'bandeja',        label: 'Bandeja', barra: true },
+  { id: 'marketing',      label: 'Marketing' },
   { id: 'teamviewer',     label: 'Soporte remoto' },
+  { id: 'agente-contpaqi', label: 'Agente CONTPAQi' },
   { id: 'goto',           label: 'GoTo Connect' },
   { id: 'bookings',       label: 'Microsoft Bookings' },
+  { id: 'bookings-asistencia', label: 'Asistencia a citas' },
   { id: 'cobro',          label: 'PULSO Cobro' },
+  { id: 'inmobiliaria',   label: 'PULSO Inmobiliaria' },
   { id: 'whatsapp-configuracion', label: 'WhatsApp' },
   { id: 'integraciones',  label: 'Integraciones', barra: true },
   { id: 'movil',          label: 'Móvil' },
@@ -85,11 +91,17 @@ export default function App() {
         <Vendedores />
         <Cotizaciones />
         <Pipeline />
+        <SeguimientoDias />
+        <ProveedoresLeads />
         <Bandeja />
+        <Marketing />
         <SoporteRemoto />
+        <AgenteContpaqi />
         <GotoConnect />
         <Bookings />
+        <BookingsAsistencia />
         <Cobro />
+        <Inmobiliaria />
         <WhatsappConfiguracion />
         <Integraciones />
         <Movil />
@@ -1213,6 +1225,306 @@ function Bookings() {
           <li>Te avisa con la notificación <strong>Nueva cita en Bookings</strong>.</li>
         </ul>
         <Tip>Las citas se revisan cada 15 minutos. Las citas se siguen agendando y administrando en Bookings; PULSO las recibe.</Tip>
+      </Bloque>
+    </Seccion>
+  )
+}
+
+// ============================================================================
+// DÍAS DE SEGUIMIENTO
+// ============================================================================
+
+function SeguimientoDias() {
+  return (
+    <Seccion
+      id="seguimiento-dias"
+      titulo="Días de seguimiento: cuándo se enfría una oportunidad"
+      etiqueta="nuevo"
+      intro="ARIA Seguimiento avisa al vendedor cuando una oportunidad pasa cierto número de días sin actividad. Si no cambias nada, son 7 días. Ahora puedes ajustar ese plazo para toda la cuenta, por etapa, por cliente o por oportunidad."
+    >
+      <Bloque rotulo="Toda la cuenta" titulo="El plazo general y por etapa">
+        <ul>
+          <li>Entra a <strong>Empleados Digitales</strong> y busca la tarjeta de <strong>ARIA Seguimiento</strong>, apartado <strong>Días de seguimiento</strong>.</li>
+          <li>En <strong>Por omisión</strong> escribe los días para toda la cuenta. Vacío = 7 días.</li>
+          <li>Abre <strong>Por etapa (opcional)</strong> si alguna etapa del embudo necesita otro ritmo; por ejemplo, 3 días en “Propuesta enviada” y 15 en “Prospecto”. Vacío = el de la cuenta.</li>
+          <li>Haz clic en <strong>Guardar</strong>.</li>
+        </ul>
+        <Tip>Solo el administrador puede cambiar estos plazos; los demás los ven.</Tip>
+      </Bloque>
+
+      <Bloque rotulo="Un cliente" titulo="El plazo de una empresa">
+        <p>En la ficha de la empresa, pestaña <strong>Información</strong>, está el campo <strong>Seguimiento cada N días</strong>. Escribe los días y haz clic en <strong>Guardar</strong>. Aplica a todas las oportunidades de ese cliente.</p>
+        <p>Debajo del campo se ve qué plazo usaría si lo dejas vacío, por ejemplo <strong>“Vacío = usar el de la cuenta (7 días)”</strong>.</p>
+      </Bloque>
+
+      <Bloque rotulo="Una venta" titulo="El plazo de una oportunidad">
+        <p>Mientras la oportunidad está abierta, su ficha muestra el mismo campo <strong>Seguimiento cada N días</strong>. Úsalo para una venta que va a otro ritmo que el resto.</p>
+      </Bloque>
+
+      <Bloque rotulo="Cuál manda" titulo="Gana el más específico">
+        <ol>
+          <li>El de la <strong>oportunidad</strong>.</li>
+          <li>Si no tiene, el de la <strong>empresa</strong>.</li>
+          <li>Si no, el de la <strong>etapa</strong> en que está la oportunidad.</li>
+          <li>Si no, el de la <strong>cuenta</strong>.</li>
+          <li>Si nadie lo fijó, <strong>7 días</strong>.</li>
+        </ol>
+        <Tip>Se aceptan de 1 a 365 días. Para regresar al plazo de arriba, borra el número y guarda.</Tip>
+      </Bloque>
+    </Seccion>
+  )
+}
+
+// ============================================================================
+// PROVEEDORES DE LEADS
+// ============================================================================
+
+function ProveedoresLeads() {
+  return (
+    <Seccion
+      id="proveedores-leads"
+      titulo="Proveedores de leads: sus correos se vuelven prospectos"
+      etiqueta="nuevo"
+      intro="Si alguien te manda un correo por cada prospecto (un despacho de llamadas en frío, un portal, un formulario de terceros), regístralo y PULSO convierte esos correos en prospectos sin que nadie los capture."
+    >
+      <Bloque rotulo="Antes de empezar" titulo="Lo que necesitas">
+        <p>Los correos del proveedor deben llegar a un buzón conectado a la <strong>Bandeja</strong> de PULSO.</p>
+      </Bloque>
+
+      <Bloque rotulo="Paso a paso" titulo="Registra al proveedor">
+        <ul>
+          <li>Entra a <strong>Configuración → Proveedores de leads</strong>.</li>
+          <li>En <strong>Correo o dominio del proveedor</strong> escribe su correo (ventas@proveedor.com acepta solo ese correo) o su dominio (proveedor.com acepta cualquier correo de esa empresa). Si el proveedor usa Gmail, Hotmail o similar, escribe el correo exacto.</li>
+          <li>En <strong>Etiqueta de fuente</strong> pon cómo quieres identificar a esos prospectos, por ejemplo “Llamadas en frío – Proveedor X”.</li>
+          <li>Opcional: en <strong>Vendedor si el reparto está apagado</strong> elige a quién se le asignan.</li>
+          <li>Haz clic en <strong>Agregar proveedor</strong>. Con la casilla <strong>Activo</strong> lo pausas y con <strong>Quitar</strong> lo eliminas.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Qué hace" titulo="Cada correo, un prospecto, sin duplicados">
+        <ul>
+          <li>PULSO lee del correo el nombre, la empresa, el correo, el teléfono y el interés del prospecto.</li>
+          <li>Crea el contacto, la empresa si viene, y la oportunidad con la etiqueta de fuente. Aplica tu reparto de vendedores y lo inscribe en ARIA Bienvenida.</li>
+          <li><strong>Si el correo o el teléfono ya existen, no duplica:</strong> agrega la oportunidad al contacto que ya tienes (o una nota, si ya tiene una abierta).</li>
+        </ul>
+        <p>En la Bandeja, cada correo del proveedor lleva una marca: <strong>Prospecto de (etiqueta)</strong>, <strong>(ya existía)</strong>, o <strong>No se pudo leer el prospecto</strong> cuando el correo no trae ni correo ni teléfono; ese hay que capturarlo a mano.</p>
+      </Bloque>
+
+      <Bloque rotulo="Antes de confiar" titulo="Prueba con un correo de ejemplo">
+        <p>En la misma pantalla, <strong>Probar con un correo</strong>: pega un correo que te haya mandado el proveedor y haz clic en <strong>Probar</strong>. Verás qué datos sacaría PULSO y si crearía un prospecto nuevo o usaría uno existente. <strong>No se crea nada.</strong></p>
+        <Tip>Abajo, <strong>Últimos correos procesados</strong> te muestra qué pasó con cada correo que ya llegó.</Tip>
+      </Bloque>
+    </Seccion>
+  )
+}
+
+// ============================================================================
+// MARKETING (CAMPAÑAS)
+// ============================================================================
+
+function Marketing() {
+  return (
+    <Seccion
+      id="marketing"
+      titulo="Marketing: campañas a tus clientes"
+      etiqueta="nuevo"
+      intro="En el menú Marketing está todo lo que sale hacia tus clientes, en dos pestañas: Campañas masivas, por etiqueta, y Personalizadas por ARIA."
+    >
+      <Bloque rotulo="Campañas masivas" titulo="Crea una campaña por etiqueta">
+        <p>Entra a <strong>Marketing → Campañas masivas</strong> y haz clic en <strong>＋ Nueva campaña</strong>. Son cuatro pasos:</p>
+        <ol>
+          <li><strong>Campaña:</strong> ponle nombre y elige el canal, <strong>Correo</strong> o <strong>WhatsApp</strong>.</li>
+          <li><strong>Audiencia:</strong> elige una o varias etiquetas (<strong>Con cualquiera de ellas</strong> o <strong>Con todas ellas</strong>). Opcional: cuenta también las etiquetas de su empresa y filtra por vendedor, estado o tipo de relación. Ves al momento cuántos la recibirán y cuántos quedan fuera, y por qué.</li>
+          <li><strong>Mensaje:</strong> elige la plantilla. Los datos variables (nombre del contacto, su empresa, quién envía) se llenan solos, y la <strong>Vista previa</strong> te muestra cómo le llega a un contacto real.</li>
+          <li><strong>Envío:</strong> <strong>Enviar ahora</strong> o <strong>Programar</strong> para una fecha y hora. Haz clic en <strong>Lanzar campaña</strong> y confirma.</li>
+        </ol>
+        <Tip>Puedes <strong>Guardar borrador</strong> y terminarla después.</Tip>
+      </Bloque>
+
+      <Bloque rotulo="Cómo sale" titulo="Por lotes, con bajas y sin repetir">
+        <ul>
+          <li>Se envía por lotes en segundo plano: puedes cerrar la pantalla. La pantalla te muestra los límites de envío por hora y por día, y cuánto llevas del mes en tu plan.</li>
+          <li><strong>Correo:</strong> cada correo lleva la liga para darse de baja; quien la usa no vuelve a recibir envíos masivos.</li>
+          <li><strong>WhatsApp:</strong> se usan plantillas aprobadas por WhatsApp y solo se envía en horario permitido (hora de México). Si el contacto contesta <strong>BAJA</strong> o <strong>STOP</strong>, ya no recibe más.</li>
+          <li><strong>Nadie la recibe dos veces</strong>, ni aunque dos contactos compartan el mismo correo o número. Tampoco se envía a tu propio equipo ni a contactos inactivos.</li>
+          <li>Mientras sale puedes <strong>Pausar</strong>, <strong>Reanudar</strong> o <strong>Cancelar campaña</strong>.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Resultados" titulo="Qué pasó con tu campaña">
+        <p>Abre la campaña para ver <strong>Resultados</strong>: enviados, entregados, leídos, fallidos y respuestas (contactos que respondieron en los 7 días siguientes; las respuestas llegan a la Bandeja como siempre). También ves quiénes quedaron fuera y el motivo.</p>
+        <p>Si después entran contactos nuevos a la audiencia, <strong>Enviar a los nuevos</strong> se la manda solo a ellos.</p>
+      </Bloque>
+
+      <Bloque rotulo="Correo masivo" titulo="Verifica tu dominio de envío">
+        <p>Para mandar una campaña de correo a <strong>más de unos 200 contactos</strong>, primero hay que verificar el dominio de tu empresa (lo que va después de la @ en tu correo, por ejemplo tuempresa.com) en <strong>Configuración → Dominio de envío</strong>.</p>
+        <ul>
+          <li><strong>Para qué sirve:</strong> demuestra que los correos realmente salen de tu empresa. Así los buzones de tus clientes confían en ellos y no los mandan a correo no deseado.</li>
+          <li><strong>Qué hay que hacer:</strong> PULSO te muestra unos datos que hay que agregar en la configuración de tu dominio. Pásaselos a quien administra tu dominio o tu página web; es un trámite de unos minutos.</li>
+          <li>Cuando PULSO confirme los datos, el dominio queda verificado y ya puedes enviar a toda tu audiencia.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Personalizadas por ARIA" titulo="Mensajes uno a uno que redacta ARIA">
+        <p>En <strong>Marketing → Personalizadas por ARIA</strong>, ARIA busca a quién escribirle y le redacta un mensaje personal. Hay dos tipos de campaña:</p>
+        <ul>
+          <li><strong>Cliente dormido:</strong> clientes que llevan meses sin comprar ni tener actividad.</li>
+          <li><strong>Venta cruzada:</strong> clientes actuales que podrían necesitar otro producto. Le das preguntas y el producto sugerido para cada una.</li>
+        </ul>
+        <p>Con <strong>Nueva campaña</strong> eliges el tipo, de dónde salen los candidatos (facturas de CONTPAQi, licencias registradas o actividades del CRM), el mensaje inicial y cuántos mensajes propone por vuelta.</p>
+        <p><strong>Nada sale sin aprobación:</strong> los mensajes llegan a la <strong>Bandeja</strong> de Empleados Digitales y el gerente los lee, los edita si hace falta y los aprueba. Cuando una campaña acumula varias aprobaciones seguidas sin cambios, se gana el modo automático; si se edita un mensaje, vuelve a pedir aprobación.</p>
+        <Tip>Las campañas personalizadas por ARIA están incluidas en el plan <strong>Enterprise</strong>.</Tip>
+      </Bloque>
+    </Seccion>
+  )
+}
+
+// ============================================================================
+// AGENTE CONTPAQi PARA DISTRIBUIDORES
+// ============================================================================
+
+function AgenteContpaqi() {
+  return (
+    <Seccion
+      id="agente-contpaqi"
+      titulo="Agente de Servicio CONTPAQi para distribuidores"
+      etiqueta="nuevo"
+      intro="Si eres distribuidor de CONTPAQi y usas PULSO HelpDesk, puedes consultar al Agente oficial de CONTPAQi desde tus tickets. Se solicita desde tu Portal Distribuidor."
+    >
+      <Bloque rotulo="Cómo funciona" titulo="Cuatro pasos">
+        <ol>
+          <li>Llenas la solicitud y la firma tu representante legal.</li>
+          <li>PULSO Soluciones la firma y la envía a CONTPAQi.</li>
+          <li>CONTPAQi le envía directamente a tu representante legal su <strong>Acuerdo de Confidencialidad (NDA)</strong>.</li>
+          <li>Subes el NDA firmado y PULSO habilita el Agente.</li>
+        </ol>
+        <Tip>El NDA de CONTPAQi es requisito: sin él no se puede habilitar el Agente.</Tip>
+      </Bloque>
+
+      <Bloque rotulo="Paso 1" titulo="Llena y firma la solicitud">
+        <ul>
+          <li>Entra a <strong>Portal Distribuidor</strong>, pestaña <strong>Agente CONTPAQi</strong>.</li>
+          <li>Captura <strong>Razón social</strong>, <strong>RFC</strong>, <strong>Nombre del representante legal</strong> y su correo, y el <strong>Contacto responsable del uso del Agente</strong> (nombre, correo y teléfono).</li>
+          <li>Haz clic en <strong>Solicitar Agente CONTPAQi</strong>.</li>
+          <li>Tu representante legal firma con <strong>Firmar ahora</strong>, o desde la invitación de PULSO Firma que le llega por correo. La solicitud incluye una carta de compromiso.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Pasos 2 a 4" titulo="Sigue el avance y sube el NDA">
+        <ul>
+          <li>En la misma pestaña ves en qué va: <strong>Firmado por ti</strong>, <strong>Firmado por PULSO</strong>, <strong>Enviado a CONTPAQi</strong>, <strong>NDA subido</strong> y <strong>Habilitado</strong>. Te avisamos en cada cambio.</li>
+          <li>Cuando tu representante tenga el NDA firmado, súbelo en PDF con <strong>Subir NDA firmado (PDF)</strong>. Si te equivocaste de archivo, usa <strong>Reemplazar NDA</strong>.</li>
+          <li>PULSO revisa el NDA y habilita el Agente. Desde ese momento lo encuentras dentro de cada ticket de HelpDesk.</li>
+        </ul>
+        <Tip>Con <strong>Ver solicitud</strong> y <strong>Ver NDA</strong> consultas los documentos firmados cuando quieras.</Tip>
+      </Bloque>
+    </Seccion>
+  )
+}
+
+// ============================================================================
+// BOOKINGS: ASISTENCIA CON GOTO MEETING
+// ============================================================================
+
+function BookingsAsistencia() {
+  return (
+    <Seccion
+      id="bookings-asistencia"
+      titulo="Asistencia a citas de Bookings con GoTo Meeting"
+      etiqueta="nuevo"
+      intro="Si tus citas de Microsoft Bookings se atienden por GoTo Meeting, PULSO marca solo quién asistió y quién no, y te propone escribirle a quien faltó para reagendar."
+    >
+      <Bloque rotulo="Antes de empezar" titulo="Lo que necesitas">
+        <ul>
+          <li><a href="#bookings">Microsoft Bookings</a> conectado a PULSO.</li>
+          <li><a href="#goto">GoTo</a> conectado, con GoTo Meeting.</li>
+          <li>Que la cita lleve la liga de la reunión de GoTo Meeting.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Qué hace" titulo="Asistió / No asistió, sin capturar">
+        <p>Unos 15 minutos después de que termina la cita, PULSO revisa quién entró a la reunión:</p>
+        <ul>
+          <li><strong>Asistió:</strong> el cliente (o alguien de fuera de tu equipo) se conectó. Se anota cuántos minutos estuvo.</li>
+          <li><strong>No asistió:</strong> la reunión sí se abrió, pero solo entró tu equipo.</li>
+          <li>Si GoTo no reporta la reunión, la cita no se marca como “No asistió”: queda como estaba, con la leyenda <strong>GoTo no reportó la reunión</strong>.</li>
+        </ul>
+        <p>Lo ves en la ficha del contacto, en <strong>Citas de Bookings</strong> (con la nota <strong>Lo registró GoTo Meeting</strong>), y en su historial.</p>
+      </Bloque>
+
+      <Bloque rotulo="Con Andy" titulo="Propuesta para reagendar, con tu aprobación">
+        <p>Si tienes a Andy, tu asistente de operaciones, cuando alguien no llega a su cita Andy te propone escribirle para reagendar: por WhatsApp si tienes la plantilla aprobada y el número del contacto, o por correo con la liga para elegir otro horario.</p>
+        <ul>
+          <li>La propuesta aparece en la pantalla de Andy. <strong>No sale nada hasta que la apruebas</strong>; también puedes rechazarla o comentarle qué cambiar.</li>
+          <li>Solo se propone dentro de las 48 horas siguientes a la cita; después ya llegaría tarde.</li>
+        </ul>
+      </Bloque>
+    </Seccion>
+  )
+}
+
+// ============================================================================
+// PULSO INMOBILIARIA
+// ============================================================================
+
+function Inmobiliaria() {
+  return (
+    <Seccion
+      id="inmobiliaria"
+      titulo="PULSO Inmobiliaria"
+      etiqueta="nuevo"
+      intro="Para inmobiliarias y asesores: tu inventario con fotos, lo que busca cada cliente, visitas, fichas para compartir y rentas, conectados con tu CRM."
+    >
+      <Bloque rotulo="Antes de empezar" titulo="Cómo se activa">
+        <p>Se activa por cuenta; pídelo a <strong>{EMAIL_SOPORTE}</strong>. Ya activo, aparece el menú <strong>Inmobiliaria</strong> con las pestañas <strong>Tablero</strong>, <strong>Inmuebles</strong>, <strong>Interesados</strong>, <strong>Visitas</strong> y <strong>Rentas</strong>.</p>
+      </Bloque>
+
+      <Bloque rotulo="Inventario" titulo="Da de alta un inmueble con fotos">
+        <ul>
+          <li>Haz clic en <strong>+ Inmueble</strong>. Captura el título del anuncio, el tipo (casa, departamento, terreno, local, oficina o bodega), la operación (venta, renta o ambas), el precio en pesos o dólares, la ubicación y las características: m², recámaras, baños, estacionamientos, amenidades y descripción.</li>
+          <li>Deja la <strong>Clave</strong> vacía y PULSO asigna la siguiente (INM-0001…).</li>
+          <li>En <strong>Propietario, asesor y comisión</strong> registras al dueño, al asesor responsable y la comisión pactada (porcentaje o monto fijo). Esos datos son solo para tu inmobiliaria.</li>
+          <li>Ya guardado, en <strong>Fotos</strong> usa <strong>Subir fotos</strong>. La primera queda de portada; puedes cambiarla con <strong>Usar de portada</strong> y reordenarlas.</li>
+        </ul>
+        <p>En <strong>Inmuebles</strong> filtras por operación, tipo, estatus (disponible, apartado, vendido, rentado, suspendido), zona, precio y recámaras, en tarjetas o en lista.</p>
+      </Bloque>
+
+      <Bloque rotulo="Interesados" titulo="Lo que busca cada cliente y qué le sirve">
+        <ul>
+          <li>En <strong>Interesados → + Nuevo interesado</strong> elige el contacto y registra qué busca: ¿compra o renta?, tipos, presupuesto, zonas y recámaras mínimas. Opcional: crea o usa su oportunidad en tu embudo de ventas.</li>
+          <li>En su ficha, <strong>Inmuebles que le sirven</strong> lista el inventario disponible que cumple todo. Con <strong>Proponer</strong> se lo ofreces y con <strong>Agendar visita</strong> lo citas.</li>
+          <li>Al revés también: en la ficha de cada inmueble, <strong>Interesados a los que les sirve</strong> te dice a quién ofrecérselo.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Visitas" titulo="Agenda las visitas">
+        <ul>
+          <li>Con <strong>+ Agendar visita</strong> eliges el inmueble, el interesado (o el contacto), el asesor que acompaña, la fecha, la hora y la duración.</li>
+          <li>Marca <strong>Enviar también a Outlook / Google Calendar del asesor</strong> para que le aparezca en su calendario.</li>
+          <li>Después de la visita, registra <strong>¿Cómo le fue?</strong>: <strong>Le gustó</strong>, <strong>No le gustó</strong> o <strong>Quiere oferta</strong>.</li>
+          <li>La pestaña <strong>Visitas</strong> muestra la semana, con <strong>Semana anterior</strong> y <strong>Semana siguiente</strong>.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Compartir" titulo="Ficha pública del inmueble">
+        <p>Cada inmueble tiene una <strong>Ficha pública</strong>: una liga para mandar por WhatsApp o correo con las fotos, los datos y el botón para contactar al asesor. <strong>Nunca muestra al propietario ni la calle.</strong></p>
+        <ul>
+          <li><strong>Copiar liga</strong>, o envíala directo con <strong>WhatsApp</strong> o <strong>Correo</strong>. <strong>Ver ficha</strong> te la muestra como la verá tu cliente.</li>
+          <li><strong>Apagar ficha</strong> la oculta: quien tenga la liga verá “no disponible”. <strong>Liga nueva</strong> invalida la anterior.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Rentas" titulo="Contratos de renta con recordatorios">
+        <ul>
+          <li>En <strong>Rentas → + Nuevo contrato</strong> (o desde la ficha de un inmueble en renta) registra inquilino, fiador, inicio y término, renta mensual, depósito y día de pago.</li>
+          <li>Marca <strong>Recordar el pago al inquilino por WhatsApp</strong> y elige cuántos días antes. Para esto tu cuenta necesita la plantilla de WhatsApp de recordatorio de renta aprobada; soporte te ayuda a darla de alta.</li>
+          <li>En <strong>Avisarme del vencimiento</strong> eliges con cuántos días de anticipación te avisa PULSO que se acaba el contrato.</li>
+          <li>Con <strong>Terminar</strong> cierras el contrato y se dejan de mandar recordatorios.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Tablero" titulo="Tu operación de un vistazo">
+        <p>El <strong>Tablero</strong> muestra tu inventario por estatus, los interesados activos, las visitas de esta semana, las operaciones cerradas este mes (ventas y rentas) y los contratos que vencen en los próximos 60 días.</p>
       </Bloque>
     </Seccion>
   )

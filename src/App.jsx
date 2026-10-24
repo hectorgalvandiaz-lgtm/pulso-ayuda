@@ -1357,12 +1357,15 @@ function Marketing() {
       </Bloque>
 
       <Bloque rotulo="Correo masivo" titulo="Verifica tu dominio de envío">
-        <p>Para mandar una campaña de correo a <strong>más de unos 200 contactos</strong>, primero hay que verificar el dominio de tu empresa (lo que va después de la @ en tu correo, por ejemplo tuempresa.com) en <strong>Configuración → Dominio de envío</strong>.</p>
+        <p>Las campañas de correo de <strong>más de 200 destinatarios</strong> salen desde el dominio de tu empresa (lo que va después de la @, por ejemplo noticias@tuempresa.mx). Así demuestras que el correo es tuyo, tu buzón no se bloquea por mandar demasiados correos y los mensajes no caen en spam.</p>
         <ul>
-          <li><strong>Para qué sirve:</strong> demuestra que los correos realmente salen de tu empresa. Así los buzones de tus clientes confían en ellos y no los mandan a correo no deseado.</li>
-          <li><strong>Qué hay que hacer:</strong> PULSO te muestra unos datos que hay que agregar en la configuración de tu dominio. Pásaselos a quien administra tu dominio o tu página web; es un trámite de unos minutos.</li>
-          <li>Cuando PULSO confirme los datos, el dominio queda verificado y ya puedes enviar a toda tu audiencia.</li>
+          <li>Entra a <strong>Configuración → Comunicación → Dominio de envío</strong>.</li>
+          <li>Captura el <strong>Dominio de tu empresa</strong> (solo el dominio, sin www; no se aceptan correos gratuitos como gmail.com o hotmail.com), la <strong>Dirección que envía</strong> (por ejemplo “noticias”), el <strong>Nombre que verán tus clientes</strong> y, si quieres, a quién le llegan las respuestas en <strong>Las respuestas llegan a</strong>. Si lo dejas vacío, le llegan a quien lanzó la campaña.</li>
+          <li>Haz clic en <strong>Registrar dominio</strong>. PULSO te muestra unos datos; con <strong>Copiar todos los registros</strong> pásaselos a quien administra tu dominio o tu página web para que los agregue.</li>
+          <li>Cuando los haya agregado, regresa y haz clic en <strong>Verificar</strong>. El cambio puede tardar desde unos minutos hasta 48 horas en notarse.</li>
         </ul>
+        <p>El estado del dominio te dice en qué va: <strong>Pendiente</strong>, <strong>Verificado</strong> (las campañas ya salen desde ahí) o <strong>No se pudo verificar</strong> (revisa que los datos estén copiados exactamente igual y vuelve a verificar).</p>
+        <Tip>Con <strong>Cambiar remitente</strong> ajustas la dirección o el nombre después. Si quitas el dominio, las campañas grandes no se podrán lanzar hasta que registres uno de nuevo.</Tip>
       </Bloque>
 
       <Bloque rotulo="Personalizadas por ARIA" titulo="Mensajes uno a uno que redacta ARIA">

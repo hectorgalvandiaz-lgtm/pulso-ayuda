@@ -30,6 +30,7 @@ const SECCIONES_NAV = [
   { id: 'cobro',          label: 'PULSO Cobro' },
   { id: 'inmobiliaria',   label: 'PULSO Inmobiliaria' },
   { id: 'whatsapp-configuracion', label: 'WhatsApp' },
+  { id: 'aria-cotizadora', label: 'ARIA Cotizadora' },
   { id: 'integraciones',  label: 'Integraciones', barra: true },
   { id: 'movil',          label: 'Móvil' },
 ]
@@ -103,6 +104,7 @@ export default function App() {
         <Cobro />
         <Inmobiliaria />
         <WhatsappConfiguracion />
+        <AriaCotizadora />
         <Integraciones />
         <Movil />
       </main>
@@ -971,6 +973,184 @@ function WhatsappConfiguracion() {
       </div>
     </Seccion>
   )
+}
+
+// ============================================================================
+// ARIA COTIZADORA (WhatsApp)
+// ============================================================================
+
+/** Captura a todo el ancho, debajo del texto (pantallas de PULSO). */
+function Captura({ src, alt, pie, angosta }) {
+  return (
+    <figure className={angosta ? 'captura angosta' : 'captura'}>
+      <img src={src} alt={alt} loading="lazy" onError={(e) => { e.currentTarget.style.display = 'none' }} />
+      {pie && <figcaption>{pie}</figcaption>}
+    </figure>
+  )
+}
+
+/** Paso con texto a la izquierda y la conversación de ejemplo a la derecha. */
+function Conversacion({ rotulo, titulo, src, alt, children }) {
+  return (
+    <div className="paso">
+      <div className="paso-texto">
+        <span className="paso-num">{rotulo}</span>
+        <h3>{titulo}</h3>
+        <div>{children}</div>
+      </div>
+      <div className="paso-img"><img src={src} alt={alt} loading="lazy" className="img-chat" /></div>
+    </div>
+  )
+}
+
+function AriaCotizadora() {
+  return (
+    <Seccion
+      id="aria-cotizadora"
+      titulo="ARIA Cotizadora: tu asistente de WhatsApp"
+      etiqueta="solicitud"
+      intro="ARIA, el asistente de PULSO, atiende el WhatsApp de tu empresa a cualquier hora: le da a tu cliente un menú de tres opciones, le manda una cotización con los precios de tu catálogo, le abre un ticket de soporte o lo pasa con un asesor. Todo lo que hace queda registrado en PULSO."
+    >
+      <Bloque rotulo="Qué resuelve" titulo="Nadie se queda sin respuesta">
+        <ul>
+          <li><strong>Cotiza al momento:</strong> el cliente dice qué necesita y recibe la liga de su cotización en el mismo chat, aunque sea domingo.</li>
+          <li><strong>Captura prospectos:</strong> si te escribe un número que no tienes registrado, ARIA le pide sus datos y lo da de alta con su oportunidad.</li>
+          <li><strong>Ordena el soporte:</strong> las dudas y los trámites llegan como tickets de HelpDesk con folio.</li>
+          <li><strong>Pasa con una persona</strong> cuando el cliente lo pide, y avisa al asesor que menos carga tiene.</li>
+        </ul>
+        <p>Así se ve el menú que recibe tu cliente:</p>
+      </Bloque>
+
+      <Conversacion rotulo="El menú" titulo="Lo primero que ve tu cliente" src="/img/img-40-aria-chat-menu.png" alt="Ejemplo ilustrativo: menú de bienvenida de ARIA en WhatsApp">
+        <p>Cuando alguien te escribe por primera vez, o vuelve después de más de 24 horas sin escribir, ARIA le contesta con tu <strong>mensaje de bienvenida</strong>. El cliente responde con el número de la opción.</p>
+        <p>También entiende palabras: “cotización”, “precio” o “plan” llevan a la opción 1; “soporte”, “problema” o “error”, a la 2; “asesor” o “hablar con alguien”, a la 3.</p>
+      </Conversacion>
+
+      <Bloque rotulo="Antes de empezar" titulo="Lo que necesitas">
+        <ul>
+          <li>Plan <strong>Enterprise</strong>.</li>
+          <li>Que el equipo de PULSO active ARIA Cotizadora en tu cuenta. Pídelo a tu asesor de PULSO o desde <strong>Empleados Digitales → ARIA Cotizadora → Solicitar acceso temprano</strong>. Ya activa, aparece <strong>Configuración → ARIA Cotizadora</strong>.</li>
+          <li>Tu número de <strong>WhatsApp Business conectado</strong> a PULSO (ver <a href="#whatsapp-configuracion">Conecta tu número de WhatsApp</a>). Recomendamos un <strong>número dedicado</strong> para ARIA; abajo te explicamos por qué.</li>
+          <li><strong>Tu catálogo con precios</strong> (menú <strong>Catálogo</strong>). ARIA solo cotiza lo que está ahí.</li>
+          <li><strong>PULSO HelpDesk</strong> en tu cuenta para la opción 2 (tickets) y para que el asesor reciba el aviso de la opción 3.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Paso 1" titulo="Conecta el número que va a atender ARIA">
+        <p><strong>¿Por qué un número dedicado?</strong> ARIA contesta todo lo que llega al número que le asignes, y esas conversaciones no aparecen en tu Bandeja. Con un número solo para ARIA, tu equipo sigue atendiendo a mano el número de siempre y ARIA atiende el suyo. Si no le asignas ningún número, ARIA contesta en los números de tu Bandeja.</p>
+        <ul>
+          <li>En <strong>Configuración → Comunicación → WhatsApp Business</strong>, usa <strong>+ Agregar número</strong> y conecta el número nuevo con Meta, igual que conectaste el primero.</li>
+          <li>El número <strong>Principal</strong> de la Bandeja no puede ser el de ARIA.</li>
+          <li>Cuando se lo asignes (paso 2), el número muestra la etiqueta <strong>ARIA</strong> en tu lista.</li>
+        </ul>
+        <Captura src="/img/img-30-aria-numeros-whatsapp.png" alt="Lista de números de WhatsApp con un número etiquetado ARIA" pie="Dos números: el de la oficina (Principal, para la Bandeja) y el de ARIA." />
+      </Bloque>
+
+      <Bloque rotulo="Paso 2" titulo="Configura a ARIA">
+        <p>Entra a <strong>Configuración → ARIA Cotizadora</strong>. Solo los administradores pueden cambiarla.</p>
+        <ul>
+          <li><strong>Número de WhatsApp para ARIA:</strong> elige el número dedicado. Este cambio se aplica en cuanto lo eliges.</li>
+          <li><strong>Horario — inicio y fin:</strong> en horas enteras, hora del centro de México (por ejemplo 9 y 18). Si pones la misma hora en los dos, ARIA atiende todo el día.</li>
+          <li><strong>Menú de bienvenida:</strong> encendido, ARIA saluda con tu menú. Apagado, no hay menú: a tus clientes registrados ARIA les contesta directo como cotizador, y a los números que no conoce no les contesta.</li>
+          <li><strong>Mensaje de bienvenida (menú):</strong> hasta 500 caracteres. <strong>Escribe el tuyo</strong> con el nombre de tu empresa: si lo dejas vacío, ARIA usa el saludo genérico de PULSO. Conserva las tres opciones en el mismo orden (1 cotización, 2 soporte, 3 asesor).</li>
+          <li><strong>Mensaje fuera de horario:</strong> el aviso que recibe quien escribe cuando estás cerrado. Si lo dejas vacío: “¡Gracias por escribirnos! En este momento estamos fuera de horario. Te responderemos en cuanto abramos. 🙏”</li>
+          <li><strong>Vendedor por defecto para cotizaciones ARIA:</strong> a quién se asignan las oportunidades y cotizaciones que crea ARIA. Si no eliges a nadie, se asignan al vendedor del contacto y, si no tiene, al primer administrador.</li>
+        </ul>
+        <p>Haz clic en <strong>Guardar</strong>.</p>
+        <Captura src="/img/img-31-aria-configuracion.png" alt="Pantalla Configuración, ARIA Cotizadora" pie="Ejemplo de configuración de un despacho contable." />
+        <Tip>En tu bienvenida invita a escribir la duda junto con el número, por ejemplo “2 no me llegó mi acuse”. Así el ticket se abre ya con la descripción del problema.</Tip>
+      </Bloque>
+
+      <Conversacion rotulo="Opción 1 · Cliente registrado" titulo="Cotización en el chat" src="/img/img-41-aria-chat-cotizacion.png" alt="Ejemplo ilustrativo: ARIA envía la liga de una cotización">
+        <p>Si el número ya es un contacto de tu PULSO, ARIA le pregunta qué necesita, busca esos productos o servicios en tu catálogo, arma la cotización y le manda la <strong>liga</strong> con el total.</p>
+        <p>La cotización <strong>sale directo al cliente</strong>, sin que nadie la revise antes. Por eso importa tener el catálogo al día (ver Buenas prácticas).</p>
+      </Conversacion>
+
+      <Conversacion rotulo="La liga" titulo="Lo que abre tu cliente" src="/img/img-36-aria-portal-cotizacion.png" alt="Cotización abierta desde la liga, vista en un teléfono">
+        <p>Con la liga, tu cliente ve la cotización con el nombre de tu empresa y puede <strong>aceptarla</strong>, <strong>rechazarla</strong> o dejarte un <strong>comentario</strong> para pedir un ajuste. Es la misma página de las cotizaciones que mandas desde PULSO.</p>
+      </Conversacion>
+
+      <Conversacion rotulo="Opción 1 · Número nuevo" titulo="Captura de prospectos" src="/img/img-42-aria-chat-prospecto.png" alt="Ejemplo ilustrativo: ARIA pide los datos de un prospecto">
+        <p>Si el número no está en tu PULSO, ARIA hace cuatro preguntas: nombre completo, empresa, correo y cuántos usuarios necesita. Con eso da de alta la empresa, el contacto y una oportunidad, y le pide qué quiere cotizar.</p>
+      </Conversacion>
+
+      <Conversacion rotulo="Opción 2" titulo="Ticket de soporte" src="/img/img-43-aria-chat-soporte.png" alt="Ejemplo ilustrativo: ARIA abre un ticket de soporte">
+        <p>ARIA abre un ticket en tu HelpDesk y le da al cliente su folio. Si el cliente ya tiene un ticket abierto, primero le pregunta si su mensaje es sobre ese ticket:</p>
+        <ImagenChat src="/img/img-44-aria-chat-seguimiento.png" alt="Ejemplo ilustrativo: ARIA pregunta si es sobre el ticket abierto" />
+      </Conversacion>
+
+      <Conversacion rotulo="Opción 3" titulo="Hablar con un asesor" src="/img/img-45-aria-chat-asesor.png" alt="Ejemplo ilustrativo: ARIA pasa la conversación con un asesor">
+        <p>ARIA elige, entre tus vendedores y administradores activos, al que menos conversaciones de WhatsApp atendió en las últimas 24 horas. Le asigna el contacto, le avisa y le dice al cliente quién lo va a atender.</p>
+        <p>Desde ese momento <strong>ARIA deja de contestarle a ese cliente durante 2 horas</strong>, para no interrumpir al asesor.</p>
+      </Conversacion>
+
+      <Conversacion rotulo="Preguntas de precio" titulo="Si solo pregunta “¿cuánto cuesta?”" src="/img/img-46-aria-chat-precios.png" alt="Ejemplo ilustrativo: ARIA ofrece un asesor ante una duda de precios">
+        <p>Cuando el cliente pregunta por precios o compara sin pedir algo concreto, ARIA le ofrece pasarlo con un asesor. Si contesta que sí, sigue el camino de la opción 3; si dice que no, le vuelve a mostrar el menú.</p>
+      </Conversacion>
+
+      <Conversacion rotulo="Fuera de horario" titulo="Cuando estás cerrado" src="/img/img-47-aria-chat-fuera.png" alt="Ejemplo ilustrativo: aviso de fuera de horario">
+        <p>Fuera de tu horario ARIA manda tu aviso <strong>una sola vez</strong> y ya no contesta hasta que abras. Los mensajes quedan guardados en PULSO.</p>
+      </Conversacion>
+
+      <Bloque rotulo="Otras respuestas" titulo="Si el cliente no elige una opción">
+        <ul>
+          <li>Si su respuesta no corresponde a ninguna opción, ARIA le contesta: “No entendí tu respuesta. Por favor elige una opción” con las tres opciones. Si vuelve a pasar, lo pasa con un asesor.</li>
+          <li>Si el cliente deja una cotización o la captura de datos a medias y vuelve a escribir más de 2 horas después, ARIA empieza de nuevo con el menú.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="En PULSO" titulo="Lo que ve tu equipo">
+        <h4>Oportunidad y cotización</h4>
+        <p>Cada cotización de ARIA queda ligada a una oportunidad del contacto. Si no tenía una abierta, ARIA crea <strong>“Solicitud WhatsApp — (nombre)”</strong> en la etapa <strong>Prospecto</strong> (o la primera etapa de tu pipeline), asignada al vendedor por defecto. La cotización queda en estado <strong>Enviada</strong>, con la nota interna “Cotización generada por ARIA”.</p>
+        <Captura src="/img/img-32-aria-oportunidad.png" alt="Oportunidad creada por ARIA con su cotización ligada" />
+        <p>En la pestaña <strong>Historia</strong> de la oportunidad queda el registro con el folio y el total:</p>
+        <Captura src="/img/img-33-aria-historia.png" alt="Historia de la oportunidad con la cotización de ARIA" />
+        <h4>Prospecto nuevo</h4>
+        <p>Con los datos que capturó, ARIA crea la empresa, el contacto (con su WhatsApp) y la oportunidad <strong>“Lead WhatsApp — (empresa)”</strong>. En las actividades del contacto queda “Lead capturado por WhatsApp” con lo que contestó, incluido cuántos usuarios dijo necesitar.</p>
+        <h4>Ticket de soporte</h4>
+        <p>El ticket llega a HelpDesk como <strong>Nuevo</strong>, canal WhatsApp, prioridad media y sin costo, con lo que escribió el cliente. Si el cliente pidió seguimiento de un ticket que ya tenía, ARIA deja una nota interna en ese ticket y avisa al agente asignado.</p>
+        <Captura src="/img/img-34-aria-ticket.png" alt="Ticket de HelpDesk abierto por ARIA" />
+        <h4>Aviso al asesor</h4>
+        <p>El asesor elegido recibe el aviso en la campana de notificaciones de PULSO con el nombre y el teléfono del cliente. El contacto queda asignado a él.</p>
+        <Captura src="/img/img-35-aria-aviso-asesor.png" alt="Notificación al asesor: un cliente pide hablar con un asesor" angosta />
+        <Tip>Las conversaciones del número de ARIA no aparecen en la Bandeja. El asesor retoma al cliente con los datos del aviso; lo que ARIA hizo queda en la ficha del contacto, sus oportunidades y sus tickets.</Tip>
+      </Bloque>
+
+      <Bloque rotulo="Baja" titulo="Si el cliente escribe BAJA">
+        <p>Si un contacto escribe solo <strong>BAJA</strong>, <strong>ALTO</strong>, <strong>STOP</strong>, <strong>CANCELAR</strong> o <strong>NO MAS</strong>, PULSO lo marca como <strong>🚫 No enviar WhatsApp</strong>, cancela los WhatsApp que tenía programados y deja una nota en su historial. ARIA no le contesta ese mensaje ni los siguientes.</p>
+        <p>Si después el contacto te pide volver a recibir mensajes, en su ficha usa <strong>Volver a permitir WhatsApp</strong>.</p>
+      </Bloque>
+
+      <Bloque rotulo="Buenas prácticas" titulo="Para que ARIA cotice bien">
+        <ul>
+          <li><strong>Catálogo con precios al día y nombres claros</strong>, como los diría tu cliente (“Contabilidad mensual Persona Moral”). ARIA busca por nombre; si el cliente pide algo que no está en tu catálogo, ese renglón sale en $0.</li>
+          <li><strong>El precio que pones es el que cotiza.</strong> ARIA usa el precio de tu catálogo tal cual, como precio final: no le suma IVA. Si cargas varias listas de precio, toma la más baja que no esté en cero.</li>
+          <li><strong>Revisa las cotizaciones de ARIA</strong> en Cotizaciones o en la oportunidad. Si hay que ajustar algo, edítala y vuelve a mandarla desde PULSO.</li>
+          <li><strong>Elige un vendedor por defecto</strong> para que ninguna oportunidad quede sin dueño.</li>
+          <li><strong>Escribe tu bienvenida</strong> con el nombre de tu empresa y las tres opciones.</li>
+          <li><strong>Pon tu horario real</strong> y un aviso de fuera de horario que diga cuándo respondes.</li>
+        </ul>
+      </Bloque>
+
+      <Bloque rotulo="Preguntas frecuentes" titulo="Dudas comunes">
+        <h4>¿ARIA contesta mensajes con fotos, audios o documentos?</h4>
+        <p>No. ARIA solo contesta mensajes de texto. Lo demás queda guardado en PULSO para que lo vea tu equipo.</p>
+        <h4>¿Puedo apagar a ARIA por un rato?</h4>
+        <p>Sí: en <strong>Configuración → ARIA Cotizadora</strong>, en <strong>Número de WhatsApp para ARIA</strong>, elige “Ninguno” y ese número vuelve a la Bandeja. Ojo: sin número asignado, ARIA atiende los números de tu Bandeja. Para apagarla del todo, pídelo a soporte de PULSO.</p>
+        <h4>¿Puedo cambiar las preguntas que hace a un prospecto?</h4>
+        <p>No por ahora: son nombre, empresa, correo y cuántos usuarios necesita.</p>
+        <h4>¿Cómo sabe ARIA si el cliente ya está registrado?</h4>
+        <p>Por su número de teléfono: si coincide con el WhatsApp, celular o teléfono de un contacto, lo reconoce.</p>
+        <h4>¿Qué pasa si el cliente responde después de recibir su cotización?</h4>
+        <p>ARIA lee su mensaje: si pide otros productos, le prepara otra cotización; si pregunta por precios, le ofrece un asesor; si no es ninguna de las dos, le vuelve a mostrar el menú.</p>
+      </Bloque>
+    </Seccion>
+  )
+}
+
+/** La segunda conversación dentro de un mismo paso. */
+function ImagenChat({ src, alt }) {
+  return <img src={src} alt={alt} loading="lazy" className="img-chat img-chat-extra" />
 }
 
 // ============================================================================

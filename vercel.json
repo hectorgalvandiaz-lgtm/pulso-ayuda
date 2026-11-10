@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/:path*", "destination": "https://www.pulsocrm.com.mx/ayuda", "permanent": true }
+  ]
+}
